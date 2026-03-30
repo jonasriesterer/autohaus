@@ -23,7 +23,7 @@ import subprocess  # noqa: S404
 from pathlib import Path
 from sysconfig import get_platform
 
-nvd_api_key = "47fbc0a4-9240-4fda-9a26-d7d5624c16bf"
+nvd_api_key = "93f86d4f-a9b1-4653-a8f4-f579097fff15"
 project = "FastAPI"
 
 base_script = "dependency-check"
