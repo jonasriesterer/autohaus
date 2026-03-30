@@ -15,16 +15,15 @@
 
 """Entity-Klasse für Autohausdaten."""
 
-from dataclasses import InitVar
 from datetime import date, datetime
 from typing import Any, Self
 
-from loguru import logger
-from sqlalchemy import JSON, Identity, func
-from sqlalchemy.orm import Mapped, mapped_column, reconstructor, relationship
-from autohaus.entity.base import Base
-from autohaus.entity.auto import Auto
+from sqlalchemy import Identity, func
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from autohaus.entity.adresse import Adresse
+from autohaus.entity.auto import Auto
+from autohaus.entity.base import Base
 
 # https://docs.python.org/3/library/dataclasses.html
 # vgl.: record in Java, data class in Kotlin
