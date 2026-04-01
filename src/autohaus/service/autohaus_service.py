@@ -161,7 +161,7 @@ class AutohausService:
         for autohaus in autohaeuser:
             
             worksheet.append((
-                autohaus.nachname,
+                autohaus.name,
                 autohaus.anzahl_fahrzeug,
                 autohaus.gruendungsdatum
             ))
