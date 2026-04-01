@@ -23,7 +23,7 @@ from loguru import logger
 from openpyxl import Workbook  # pyright: ignore[reportMissingModuleSource]
 
 from autohaus.config import excel_enabled
-from autihaus.repository import (
+from autohaus.repository import (
     Pageable,
     AutohausRepository,
     Session,
