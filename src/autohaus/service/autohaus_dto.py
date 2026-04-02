@@ -13,14 +13,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""DTO-Klasse für Patientendaten, insbesondere ohne Decorators für SQLAlchemy."""
+"""DTO-Klasse für Autohaus daten, insbesondere ohne Decorators für SQLAlchemy."""
 
 from dataclasses import dataclass
 from datetime import date
 
 import strawberry
 
-from autohaus.entity import autohaus, Autohaus
+from autohaus.entity import Autohaus
 #from autohaus.service.adresse_dto import AdresseDTO
 
 __all__ = ["AutohausDTO"]
@@ -45,10 +45,10 @@ class AutohausDTO:
     id: int
     version: int
     name: str
-    anzahl_fahrzeuge: str
-    gruendungsdatum: int
+    anzahl_fahrzeuge: int
+    gruendungsdatum: date
     homepage: str | None
-    telefonnummer: int | None
+    telefonnummer: str | None
 
     # asdict kann nicht verwendet werden: Rueckwaertsverweise Autohaus - Adresse
     # https://github.com/python/cpython/issues/94345
