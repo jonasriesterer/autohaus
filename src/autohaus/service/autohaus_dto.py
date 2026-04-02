@@ -21,7 +21,7 @@ from datetime import date
 import strawberry
 
 from autohaus.entity import Autohaus
-#from autohaus.service.adresse_dto import AdresseDTO
+from autohaus.service.adresse_dto import AdresseDTO
 
 __all__ = ["AutohausDTO"]
 
@@ -49,6 +49,7 @@ class AutohausDTO:
     gruendungsdatum: date
     homepage: str | None
     telefonnummer: str | None
+    adresse: AdresseDTO
 
     # asdict kann nicht verwendet werden: Rueckwaertsverweise Autohaus - Adresse
     # https://github.com/python/cpython/issues/94345
@@ -65,4 +66,5 @@ class AutohausDTO:
         self.gruendungsdatum = autohaus.gruendungsdatum
         self.homepage = autohaus.homepage
         self.telefonnummer = autohaus.telefonnummer
+        self.adresse = AdresseDTO(autohaus.adresse)
         
