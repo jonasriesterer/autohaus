@@ -20,10 +20,10 @@ from datetime import date
 
 import strawberry
 
-from autohaus.entity import Facharzt, Familienstand, Geschlecht, Patient
-from autohaus.service.adresse_dto import AdresseDTO
+from autohaus.entity import autohaus, Autohaus
+#from autohaus.service.adresse_dto import AdresseDTO
 
-__all__ = ["PatientDTO"]
+__all__ = ["AutohausDTO"]
 
 
 # Mit der Funktion asdict() kann ein Objekt einfach in ein dict konvertiert werden
@@ -50,15 +50,15 @@ class AutohausDTO:
     homepage: str | None
     telefonnummer: int | None
 
-    # asdict kann nicht verwendet werden: Rueckwaertsverweise Patient - Adresse
+    # asdict kann nicht verwendet werden: Rueckwaertsverweise Autohaus - Adresse
     # https://github.com/python/cpython/issues/94345
     def __init__(self, autohaus: Autohaus):
-        """Initialisierung von PatientDTO durch ein Entity-Objekt von Patient.
+        """Initialisierung von AutohausDTO durch ein Entity-Objekt von Autohaus.
 
-        :param patient: Patient-Objekt mit Decorators zu SQLAlchemy
+        :param autohaus: Autohaus-Objekt mit Decorators zu SQLAlchemy
         """
-        patient_id = autohaus.id
-        self.id = patient_id if patient_id is not None else -1
+        autohaus_id = autohaus.id
+        self.id = autohaus_id if autohaus_id is not None else -1
         self.version = autohaus.version
         self.name = autohaus.name
         self.anzahl_fahrzeuge = autohaus.anzahl_fahrzeuge
