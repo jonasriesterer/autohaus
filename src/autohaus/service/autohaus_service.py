@@ -29,8 +29,7 @@ from autohaus.repository import (
     Session,
     Slice,
 )
-from autohaus.security import Role, User
-from autohaus.service.exceptions import ForbiddenError, NotFoundError
+from autohaus.service.exceptions import NotFoundError
 from autohaus.service.autohaus_dto import AutohausDTO
 
 __all__ = ["AutohausService"]
@@ -43,17 +42,15 @@ class AutohausService:
         """Konstruktor mit abhängigem AutohausRepository."""
         self.repo: AutohausRepository = repo
 
-    def find_by_id(self, autohaus_id: int, user: User) -> AutohausDTO:
+    def find_by_id(self, autohaus_id: int) -> AutohausDTO:
         """Suche mit der Autohaus-ID.
 
         :param autohaus_id: ID für die Suche
-        :param user: User aus dem Token
         :return: Das gefundene autohaus
         :rtype: AutohausDTO
         :raises NotFoundError: Falls kein autohaus gefunden
-        :raises ForbiddenError: Falls die Autohausdaten nicht gelesen werden dürfen
         """
-        logger.debug("autohaus_id={}, user={}", autohaus_id, user)
+        logger.debug("autohaus_id={}", autohaus_id)
 
         # Session-Objekt ist die Schnittstelle zur DB, nutzt intern ein Transaktionsobj.
         # implizites "autobegin()" bei einem with-Block
@@ -63,27 +60,13 @@ class AutohausService:
         # durch "with" erhaelt man einen "Context Manager", der die Ressource/Session
         # am Endes des Blocks schliesst
         with Session() as session:
-            user_is_admin: Final = Role.ADMIN in user.roles
-
             if (
                 autohaus := self.repo.find_by_id(autohaus_id=autohaus_id, session=session)
             ) is None:
-                if user_is_admin:
-                    message: Final = f"Kein Autohaus mit der ID {autohaus_id}"
-                    logger.debug("NotFoundError: {}", message)
-                    # "Throw Exceptions Instead of Returning Errors"
-                    raise NotFoundError(autohaus_id=autohaus_id)
-                logger.debug("nicht admin")
-                raise ForbiddenError
-
-            if autohaus.username != user.username and not user_is_admin:
-                logger.debug(
-                    "autohaus.username={}, user.username={}, user.roles={}",
-                    autohaus.username,
-                    user.username,
-                    user.roles,
-                )
-                raise ForbiddenError
+                message: Final = f"Kein Autohaus mit der ID {autohaus_id}"
+                logger.debug("NotFoundError: {}", message)
+                # "Throw Exceptions Instead of Returning Errors"
+                raise NotFoundError(autohaus_id=autohaus_id)
 
             autohaus_dto: Final = AutohausDTO(autohaus)
             session.commit()
@@ -157,15 +140,14 @@ class AutohausService:
         if worksheet is None:
             return
 
-        worksheet.append(["Name", "anzahl_fahrzeug", "gruendungsdatum"])
+        worksheet.append(["Name", "anzahl_fahrzeuge", "gruendungsdatum"])
         for autohaus in autohaeuser:
             
             worksheet.append((
                 autohaus.name,
-                autohaus.anzahl_fahrzeug,
+                autohaus.anzahl_fahrzeuge,
                 autohaus.gruendungsdatum
             ))
 
         timestamp: Final = datetime.now().strftime("%Y-%m-%d_%H%M%S")
         workbook.save(f"autohaeuser-{timestamp}.xlsx")
- 
