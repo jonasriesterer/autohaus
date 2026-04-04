@@ -15,7 +15,7 @@
 
 """Geschäftslogik zum Lesen von Autohausdaten."""
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping
 from datetime import datetime
 from typing import Final
 
@@ -25,12 +25,12 @@ from openpyxl import Workbook  # pyright: ignore[reportMissingModuleSource]
 from autohaus.config import excel_enabled
 from autohaus.repository import (
     Pageable,
-    AutohausRepository,
     Session,
     Slice,
 )
-from autohaus.service.exceptions import NotFoundError
+from autohaus.repository.autohaus_repository import AutohausRepository
 from autohaus.service.autohaus_dto import AutohausDTO
+from autohaus.service.exceptions import NotFoundError
 
 __all__ = ["AutohausService"]
 
@@ -61,7 +61,8 @@ class AutohausService:
         # am Endes des Blocks schliesst
         with Session() as session:
             if (
-                autohaus := self.repo.find_by_id(autohaus_id=autohaus_id, session=session)
+                autohaus := self.repo.find_by_id(autohaus_id=autohaus_id,
+                session=session)
             ) is None:
                 message: Final = f"Kein Autohaus mit der ID {autohaus_id}"
                 logger.debug("NotFoundError: {}", message)
@@ -111,24 +112,6 @@ class AutohausService:
         logger.debug("{}", autohaeuser_dto_slice)
         return autohaeuser_dto_slice
 
-    def find_namen(self, teil: str) -> Sequence[str]:
-        """Suche namen zu einem Teilstring.
-
-        :param teil: Teilstring der gesuchten Namen
-        :return: Liste der gefundenen Namen oder eine leere Liste
-        :rtype: list[str]
-        :raises NotFoundError: Falls keine Namen gefunden wurden
-        """
-        logger.debug("teil={}", teil)
-        with Session() as session:
-            namen: Final = self.repo.find_namen(teil=teil, session=session)
-            session.commit()
-
-        logger.debug("{}", namen)
-        if len(namen) == 0:
-            raise NotFoundError
-        return namen
-
     def _create_excelsheet(self, autohaeuser: tuple[AutohausDTO, ...]) -> None:
         """Ein Excelsheet mit den gefundenen Autohäuser erstellen.
 
@@ -142,7 +125,7 @@ class AutohausService:
 
         worksheet.append(["Name", "anzahl_fahrzeuge", "gruendungsdatum"])
         for autohaus in autohaeuser:
-            
+
             worksheet.append((
                 autohaus.name,
                 autohaus.anzahl_fahrzeuge,
