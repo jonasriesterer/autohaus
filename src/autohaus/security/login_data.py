@@ -1,4 +1,4 @@
-# Copyright (C) 2025 - present Juergen Zimmermann, Hochschule Karlsruhe
+# Copyright (C) 2023 - present Juergen Zimmermann, Hochschule Karlsruhe
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,22 +13,29 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Factory-Funktionen für Dependency Injection."""
+"""Data class für die Login-Daten."""
 
-from autohaus.security.token_service import TokenService
-from autohaus.security.user_service import UserService
+from dataclasses import dataclass
 
-_token_service = TokenService()  # Singleton-Objekt
-
-
-def get_token_service() -> TokenService:
-    """Factory-Funktion für TokenService."""
-    return _token_service
+__all__ = ["LoginData"]
 
 
-_user_service = UserService()  # Singleton-Objekt
+@dataclass
+class LoginData:
+    """Data class für die Login-Daten."""
 
+    username: str
+    """Benutzername"""
+    password: str
+    """Passwort"""
 
-def get_user_service() -> UserService:
-    """Factory-Funktion für UserService."""
-    return _user_service
+    class Config:
+        """Beispiel für OpenAPI."""
+
+        # https://fastapi.tiangolo.com/tutorial/schema-extra-example
+        json_schema_extra = {
+            "example": {
+                "username": "admin",
+                "password": "p",  # NOSONAR
+            },
+        }

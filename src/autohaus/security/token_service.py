@@ -24,10 +24,10 @@ from jwcrypto.common import JWException
 from keycloak import KeycloakAuthenticationError, KeycloakOpenID
 from loguru import logger
 
-from patient.config import keycloak_config
-from patient.security.exceptions import AuthorizationError, LoginError
-from patient.security.role import Role
-from patient.security.user import User
+from autohaus.config import keycloak_config
+from autohaus.security.exceptions import AuthorizationError, LoginError
+from autohaus.security.role import Role
+from autohaus.security.user import User
 
 __all__ = ["TokenService"]
 

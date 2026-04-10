@@ -1,4 +1,4 @@
-# Copyright (C) 2025 - present Juergen Zimmermann, Hochschule Karlsruhe
+# Copyright (C) 2023 - present Juergen Zimmermann, Hochschule Karlsruhe
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,23 +12,26 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""Modul für den Zugriffsschutz."""
 
-"""Factory-Funktionen für Dependency Injection."""
-
+from autohaus.security.auth_router import router, token
+from autohaus.security.exceptions import AuthorizationError, LoginError
+from autohaus.security.response_headers import set_response_headers
+from autohaus.security.role import Role
+from autohaus.security.roles_required import RolesRequired
 from autohaus.security.token_service import TokenService
+from autohaus.security.user import User
 from autohaus.security.user_service import UserService
 
-_token_service = TokenService()  # Singleton-Objekt
-
-
-def get_token_service() -> TokenService:
-    """Factory-Funktion für TokenService."""
-    return _token_service
-
-
-_user_service = UserService()  # Singleton-Objekt
-
-
-def get_user_service() -> UserService:
-    """Factory-Funktion für UserService."""
-    return _user_service
+__all__ = [
+    "AuthorizationError",
+    "LoginError",
+    "Role",
+    "RolesRequired",
+    "TokenService",
+    "User",
+    "UserService",
+    "router",
+    "set_response_headers",
+    "token",
+]
