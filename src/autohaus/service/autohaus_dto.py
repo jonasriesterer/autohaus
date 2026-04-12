@@ -20,7 +20,7 @@ from datetime import date
 
 import strawberry
 
-from autohaus.entity import Autohaus
+from autohaus.entity.autohaus import Autohaus
 from autohaus.service.adresse_dto import AdresseDTO
 
 __all__ = ["AutohausDTO"]
@@ -67,4 +67,3 @@ class AutohausDTO:
         self.homepage = autohaus.homepage
         self.telefonnummer = autohaus.telefonnummer
         self.adresse = AdresseDTO(autohaus.adresse)
-        

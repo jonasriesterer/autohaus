@@ -76,7 +76,7 @@ class AutohausRepository:
         :param pageable: Anzahl Datensätze und Seitennummer
         :param session: Session für SQLAlchemy
         :return: Tupel, d.h. readonly Liste, der gefundenen Autohäuser oder leeres Tupel
-        :rtype: Slice[Patient]
+        :rtype: Slice[Autohaus]
         """
         log_str: Final = "{}"
         logger.debug(log_str, suchparameter)
@@ -86,11 +86,11 @@ class AutohausRepository:
         # Iteration ueber die Schluessel des Dictionaries mit den Suchparameter
         for key, value in suchparameter.items():
             if key == "nachname":
-                patienten = self._find_by_name(
+                autohaeuser = self._find_by_name(
                     teil=value, pageable=pageable, session=session
                 )
-                logger.debug(log_str, patienten)
-                return patienten
+                logger.debug(log_str, autohaeuser)
+                return autohaeuser
         return Slice(content=(), total_elements=0)
 
     def _find_all(self, pageable: Pageable, session: Session) -> Slice[Autohaus]:

@@ -19,7 +19,7 @@ from dataclasses import dataclass
 
 import strawberry
 
-from autohaus.entity import Adresse
+from autohaus.entity.adresse import Adresse
 
 
 # Mit der Funktion asdict() kann ein Objekt einfach in ein dict konvertiert werden

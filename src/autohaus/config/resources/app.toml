@@ -55,7 +55,7 @@ port = 8843
 client-secret = "1ZrjDc99bHka9wjfXMa42NodHIxvjoOB"
 # admin = "admin"
 admin-password = "p"
-csv = "extras/compose/postgres/init/patient/csv/patient.csv"
+csv = "extras/compose/postgres/init/autohaus/csv/autohaus.csv"
 
 [graphql]
 # locust: auskommentieren

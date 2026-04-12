@@ -39,19 +39,16 @@ from autohaus.config.dev.keycloak_populate import keycloak_populate
 from autohaus.config.dev.keycloak_populate_router import (
     router as keycloak_populate_router,
 )
-from autohaus.graphql_api import graphql_router
 from autohaus.problem_details import create_problem_details
 from autohaus.repository.session_factory import engine
 from autohaus.router import (
+    autohaus_router,
     health_router,
-    patient_router,
-    patient_write_router,
     shutdown_router,
 )
 from autohaus.security import AuthorizationError, LoginError, set_response_headers
 from autohaus.security import router as auth_router
-from autohaus.service import (
-    EmailExistsError,
+from autohaus.service.exceptions import (
     ForbiddenError,
     NotFoundError,
     UsernameExistsError,
@@ -63,7 +60,6 @@ if TYPE_CHECKING:
 
 __all__ = [
     "authorization_error_handler",
-    "email_exists_error_handler",
     "forbidden_error_handler",
     "login_error_handler",
     "not_found_error_handler",
@@ -126,8 +122,7 @@ async def log_response_time(
 # --------------------------------------------------------------------------------------
 # R E S T
 # --------------------------------------------------------------------------------------
-app.include_router(patient_router, prefix="/rest")
-app.include_router(patient_write_router, prefix="/rest")
+app.include_router(autohaus_router, prefix="/rest")
 app.include_router(auth_router, prefix="/auth")
 app.include_router(health_router, prefix="/health")
 app.include_router(shutdown_router, prefix="/admin")
@@ -136,12 +131,6 @@ if dev_db_populate:
     app.include_router(db_populate_router, prefix="/dev")
 if dev_keycloak_populate:
     app.include_router(keycloak_populate_router, prefix="/dev")
-
-
-# --------------------------------------------------------------------------------------
-# G r a p h Q L
-# --------------------------------------------------------------------------------------
-app.include_router(graphql_router, prefix="/graphql")
 
 
 # --------------------------------------------------------------------------------------
@@ -177,7 +166,7 @@ def favicon() -> FileResponse:
     """
     src_path: Final = Path("src")
     file_name: Final = "favicon.ico"
-    favicon_path: Final = Path("patient") / "static" / file_name
+    favicon_path: Final = Path("autohaus") / "static" / file_name
     file_path: Final = src_path / favicon_path if src_path.is_dir() else favicon_path
     logger.debug("file_path={}", file_path)
     return FileResponse(
@@ -240,21 +229,6 @@ def login_error_handler(_request: Request, err: LoginError) -> Response:
     )
 
 
-@app.exception_handler(EmailExistsError)
-def email_exists_error_handler(_request: Request, err: EmailExistsError) -> Response:
-    """Exception-Handling für EmailExistsError.
-
-    :param err: Exception, falls die Emailadresse des neuen oder zu ändernden Patienten
-        bereits existiert
-    :return: Response mit Statuscode 422
-    :rtype: Response
-    """
-    return create_problem_details(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        detail=str(err),
-    )
-
-
 @app.exception_handler(UsernameExistsError)
 def username_exists_error_handler(
     _request: Request,
@@ -262,7 +236,7 @@ def username_exists_error_handler(
 ) -> Response:
     """Exception-Handling für UsernameExistsError.
 
-    :param err: Exception, falls der Username für den neuen Patienten bereits existiert
+    :param err: Exception, falls der Username für das neue Autohaus bereits existiert
     :return: Response mit Statuscode 422
     :rtype: Response
     """
