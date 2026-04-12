@@ -5,13 +5,13 @@ info:
 
 http:
   method: GET
-  url: "{{restUrl}}?nachname=Alice"
+  url: "{{restUrl}}?name=Autohaus Karlsruhe"
   headers:
     - name: Accept
       value: application/json
   params:
-    - name: nachname
-      value: Alice
+    - name: name
+      value: Autohaus Karlsruhe
       type: query
   auth: inherit
 

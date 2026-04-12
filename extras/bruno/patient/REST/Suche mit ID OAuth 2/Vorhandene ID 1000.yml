@@ -1,7 +1,7 @@
 info:
-  name: Vorhandene ID 1 ohne Token
+  name: Vorhandene ID 1000
   type: http
-  seq: 2
+  seq: 1
 
 http:
   method: GET
@@ -11,14 +11,21 @@ http:
       value: application/json
   params:
     - name: id
-      value: "1"
+      value: "1000"
       type: path
+  auth: inherit
 
 runtime:
   assertions:
     - expression: res.status
       operator: eq
-      value: "401"
+      value: "200"
+    - expression: res.headers['content-type']
+      operator: eq
+      value: application/json
+    - expression: res.body.id
+      operator: eq
+      value: "1000"
 
 settings:
   encodeUrl: true

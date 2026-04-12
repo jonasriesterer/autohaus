@@ -1,7 +1,7 @@
 info:
   name: Suche mit Suchparameter
   type: folder
-  seq: 6
+  seq: 1
 
 request:
   auth:
@@ -19,9 +19,19 @@ request:
       id: credentials
       placement:
         header: Bearer
+      source: access_token
     settings:
       autoFetchToken: true
       autoRefreshToken: false
+  variables:
+    - name: clientSecret
+      value: 1ZrjDc99bHka9wjfXMa42NodHIxvjoOB
+    - name: clientId
+      value: python-client
+    - name: password
+      value: p
+    - name: username
+      value: admin
 
 docs:
   content: Suche nach Patienten über die REST-Schnittstellen mit flexiblen Suchparameter.

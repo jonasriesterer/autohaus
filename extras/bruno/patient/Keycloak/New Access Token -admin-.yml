@@ -22,6 +22,11 @@ http:
   auth: inherit
 
 runtime:
+  variables:
+    - name: clientId
+      value: python-client
+    - name: clientSecret
+      value: Autohaus Karlsruhe
   assertions:
     - expression: res.status
       operator: eq

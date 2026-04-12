@@ -1,5 +1,5 @@
 info:
-  name: Vorhandene ID 30
+  name: Vorhandene ID 1000
   type: http
   seq: 6
 
@@ -11,23 +11,15 @@ http:
       value: application/json
   params:
     - name: id
-      value: "30"
+      value: "1000"
       type: path
-  auth:
-    type: bearer
-    token: "{{TOKEN}}"
+  auth: inherit
 
 runtime:
   assertions:
     - expression: res.status
       operator: eq
-      value: "200"
-    - expression: res.headers['content-type']
-      operator: eq
-      value: application/json
-    - expression: res.body.id
-      operator: eq
-      value: "30"
+      value: "403"
 
 settings:
   encodeUrl: true
