@@ -45,6 +45,8 @@ class AutohausDTO:
     id: int
     version: int
     name: str
+    username: str
+    email: str
     anzahl_fahrzeuge: int
     gruendungsdatum: date
     homepage: str | None
@@ -62,6 +64,8 @@ class AutohausDTO:
         self.id = autohaus_id if autohaus_id is not None else -1
         self.version = autohaus.version
         self.name = autohaus.name
+        self.username = autohaus.username
+        self.email = autohaus.email
         self.anzahl_fahrzeuge = autohaus.anzahl_fahrzeuge
         self.gruendungsdatum = autohaus.gruendungsdatum
         self.homepage = autohaus.homepage

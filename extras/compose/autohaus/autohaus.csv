@@ -1,4 +1,4 @@
-id;version;name;anzahl_fahrzeuge;gruendungsdatum;homepage;telefonnummer;erzeugt;aktualisiert
-1000;0;Autohaus Karlsruhe;15;1998-05-12;https://www.autohaus-karlsruhe.de;0721-123456;2026-04-12 10:00:00;2026-04-12 10:00:00
-1001;0;Autohaus München;28;2005-09-03;https://www.autohaus-muenchen.de;089-987654;2026-04-12 10:05:00;2026-04-12 10:05:00
-1002;0;Autohaus Berlin;12;2012-11-21;https://www.autohaus-berlin.de;030-246810;2026-04-12 10:10:00;2026-04-12 10:10:00
+id;version;name;username;email;anzahl_fahrzeuge;gruendungsdatum;homepage;telefonnummer;erzeugt;aktualisiert
+1000;0;Autohaus Karlsruhe;autohaus_karlsruhe;kontakt@autohaus-karlsruhe.de;15;1998-05-12;https://www.autohaus-karlsruhe.de;0721-123456;2026-04-12 10:00:00;2026-04-12 10:00:00
+1001;0;Autohaus München;autohaus_muenchen;kontakt@autohaus-muenchen.de;28;2005-09-03;https://www.autohaus-muenchen.de;089-987654;2026-04-12 10:05:00;2026-04-12 10:05:00
+1002;0;Autohaus Berlin;autohaus_berlin;kontakt@autohaus-berlin.de;12;2012-11-21;https://www.autohaus-berlin.de;030-246810;2026-04-12 10:10:00;2026-04-12 10:10:00

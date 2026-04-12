@@ -73,18 +73,36 @@ class KeycloakPopulateService:
 
         with csv_config_path.open(encoding=utf8) as csv_file:
             csv_reader = reader(csv_file, delimiter=";")
-            kopfzeile = True
+            header = next(csv_reader, None)
+            if header is None:
+                logger.error("CSV-Datei {} ist leer", csv_config_path)
+                return
+
+            column_index = {name: index for index, name in enumerate(header)}
+            required_columns = ["username", "email", "name"]
+            if not all(column in column_index for column in required_columns):
+                logger.error(
+                    "CSV-Datei {} muss die Spalten {} enthalten",
+                    csv_config_path,
+                    required_columns,
+                )
+                return
+
             for row in csv_reader:
-                if kopfzeile:
-                    kopfzeile = False
+                if len(row) <= max(column_index.values()):
+                    logger.warning(
+                        "Zeile in CSV-Datei {} ist unvollständig: {}",
+                        csv_config_path,
+                        row,
+                    )
                     continue
 
-                username = row[11]
+                username = row[column_index["username"]]
                 if username == "admin":
                     continue
 
-                email = row[3]
-                nachname = row[2]
+                email = row[column_index["email"]]
+                nachname = row[column_index["name"]]
                 user = User(
                     username=username,
                     email=email,

@@ -22,6 +22,8 @@ CREATE TABLE IF NOT EXISTS autohaus (
     id              INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1000) PRIMARY KEY,
     version         INTEGER NOT NULL DEFAULT 0,
     name            TEXT NOT NULL,
+    username        TEXT NOT NULL,
+    email           TEXT NOT NULL,
     anzahl_fahrzeuge INTEGER NOT NULL,
     gruendungsdatum DATE NOT NULL,
     homepage        TEXT,

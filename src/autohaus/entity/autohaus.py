@@ -52,6 +52,12 @@ class Autohaus(Base):
     name: Mapped[str]
     """Der Name."""
 
+    username: Mapped[str]
+    """Der Benutzername des Autohauses."""
+
+    email: Mapped[str]
+    """Die E-Mail-Adresse des Autohauses."""
+
     anzahl_fahrzeuge: Mapped[int]
     """Die Anzahl der Fahrzeuge."""
 
@@ -138,7 +144,8 @@ class Autohaus(Base):
         """Ausgabe eines Autohauses als String, ohne Joins zu verursachen."""
         return (
             f"A(id={self.id}, version={self.version}, "
-            + f"name={self.name}, anzahl_fahrzeuge={self.anzahl_fahrzeuge}, "
+            + f"name={self.name}, username={self.username}, email={self.email}, "
+            + f"anzahl_fahrzeuge={self.anzahl_fahrzeuge}, "
             + f"gruendungsdatum={self.gruendungsdatum}, homepage={self.homepage}, "
             + f"telefonnummer={self.telefonnummer}"
             + f"erzeugt={self.erzeugt}, aktualisiert={self.aktualisiert})"

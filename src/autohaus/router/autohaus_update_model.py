@@ -19,7 +19,7 @@ from datetime import date
 from typing import Annotated, Any
 
 from loguru import logger
-from pydantic import BaseModel, ConfigDict, Field, HttpUrl, StringConstraints
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, HttpUrl, StringConstraints
 
 from autohaus.entity.autohaus import Autohaus
 
@@ -32,6 +32,10 @@ class AutohausUpdateModel(BaseModel):
     # https://docs.pydantic.dev/latest/usage/types
     name: Annotated[str, StringConstraints(max_length=64)]
     """Der Name."""
+    username: Annotated[str, StringConstraints(max_length=64)]
+    """Der Benutzername des Autohauses."""
+    email: EmailStr
+    """Die E-Mail-Adresse des Autohauses."""
     anzahl_fahrzeuge: Annotated[int, Field(ge=1)]
     """Die Anzahl der Fahrzeuge."""
     gruendungsdatum: date
@@ -47,6 +51,8 @@ class AutohausUpdateModel(BaseModel):
         json_schema_extra={
             "example": {
                 "name": "Test",
+                "username": "autohaus_test",
+                "email": "kontakt@autohaus-test.de",
                 "anzahl_fahrzeuge": 10,
                 "gruendungsdatum": "2023-01-31",
                 "homepage": "https://test.rest",
