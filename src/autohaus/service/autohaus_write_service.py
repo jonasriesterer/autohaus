@@ -24,6 +24,7 @@ from autohaus.repository import AutohausRepository, Session
 from autohaus.security import User, UserService
 from autohaus.service.autohaus_dto import AutohausDTO
 from autohaus.service.exceptions import (
+    EmailExistsError,
     NotFoundError,
     UsernameExistsError,
     VersionOutdatedError,
@@ -63,6 +64,10 @@ class AutohausWriteService:
         # GET /admin/realms/{realm}/users
         if self.user_service.username_exists(username):
             raise UsernameExistsError(username)
+
+        email: Final = autohaus.email
+        if self.user_service.email_exists(email):
+            raise EmailExistsError(email=email)
 
         user: Final = User(
             username=username,

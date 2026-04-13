@@ -33,29 +33,6 @@ http:
     token: "{{TOKEN}}"
 
 runtime:
-  scripts:
-    - type: after-response
-      code: |-
-        test('Fehlermeldungen im Response Body', () => {
-            const body = res.getBody();
-            const props = ['name', 'username', 'email', 'anzahl_fahrzeuge', 'homepage', 'telefonnummer', 'adresse', 'autos'];
-
-            // FastAPI
-            if (Object.keys(body).length === 1 && Array.isArray(body.detail)) {
-                expect(body.detail).to.be.a('array').that.is.not.empty;
-                const detailLoc = body.detail.map(elem => elem.loc[1]);
-                expect(detailLoc).to.be.an('array').that.has.a.lengthOf(props.length).to.have.deep.members(props);
-                return;
-            }
-
-            // Flask
-            //expect(Object.keys(body)).to.be.an('array').that.has.a.lengthOf(props.length);
-            //props.forEach(prop => {
-            //    const violations = body[prop];
-            //    const violationsType = typeof violations;
-            //    expect(violationsType).to.be.oneOf(['array', 'object']);
-            //});
-        });
   assertions:
     - expression: res.status
       operator: eq

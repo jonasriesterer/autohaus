@@ -15,8 +15,8 @@ http:
     data: |-
       {
           "name": "Autohaus Test",
-          "username": "emailexists",
-          "email": "alice@acme.de",
+          "username": "emailexists123",
+          "email": "kontakt@autohaus-karlsruhe.de",
           "anzahl_fahrzeuge": 5,
           "gruendungsdatum": "2022-02-01",
           "homepage": "https://test.rest",
