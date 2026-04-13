@@ -1,5 +1,5 @@
 info:
-  name: Vorhandene ID 1000 mit falscher Versionsnummer
+  name: Vorhandene ID 100 mit falscher Versionsnummer
   type: http
   seq: 3
 
@@ -13,7 +13,7 @@ http:
       value: xxx
   params:
     - name: id
-      value: "1000"
+      value: "100"
       type: path
   auth: inherit
 
@@ -27,7 +27,7 @@ runtime:
       value: application/json
     - expression: res.body.id
       operator: eq
-      value: "1000"
+      value: "100"
 
 settings:
   encodeUrl: true
