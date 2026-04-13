@@ -39,9 +39,9 @@ from autohaus.security import Role, TokenService, UserService
 from autohaus.service import (
     AutohausDTO,
     AutohausService,
-    AutohausWriteService,
     NotFoundError,
 )
+from autohaus.service.autohaus_write_service import AutohausWriteService
 
 __all__ = ["Query", "graphql_router"]
 

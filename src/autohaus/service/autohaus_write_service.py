@@ -82,8 +82,6 @@ class AutohausWriteService:
             autohaus_dto: Final = AutohausDTO(autohaus_db)
             session.commit()
 
-        # TODO User aus Keycloak loeschen, falls die DB-Transaktion fehlschlaegt
-
         send_mail(autohaus_dto=autohaus_dto)
         logger.debug("autohaus_dto={}", autohaus_dto)
         return autohaus_dto
