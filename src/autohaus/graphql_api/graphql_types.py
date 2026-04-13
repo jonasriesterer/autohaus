@@ -29,35 +29,6 @@ __all__ = [
     "Suchparameter",
 ]
 
-# SDL (schema definition language):
-# type Autohaus {
-#     id: ID!
-#     name: String!
-#     username: String!
-#     email: String!
-#     anzahlFahrzeuge: Int!
-#     gruendungsdatum: Date!
-#     homepage: String
-#     telefonnummer: String
-#     adresse: Adresse!
-#     autos: [Auto!]!
-# }
-# input AutohausInput {
-#     name: String!
-#     username: String!
-#     email: String!
-#     anzahlFahrzeuge: Int!
-#     gruendungsdatum: Date!
-#     homepage: String
-#     telefonnummer: String
-#     adresse: AdresseInput!
-#     autos: [AutoInput!]!
-# }
-# input Suchparameter {
-#     name: String
-#     email: String
-# }
-
 
 @strawberry.input
 class Suchparameter:

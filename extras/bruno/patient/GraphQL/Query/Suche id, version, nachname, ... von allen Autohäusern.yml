@@ -1,5 +1,5 @@
 info:
-  name: Suche id, version, nachname, ... von allen Patienten
+  name: Suche id, version, nachname, ... von allen Autohäusern
   type: graphql
   seq: 3
 
@@ -13,22 +13,21 @@ graphql:
   body:
     query: |-
       {
-        patienten(suchparameter: {}) {
+        autohaeuser(suchparameter: {}) {
           id
           version
-          nachname
+          name
+          username
           email
-          kategorie
-          hasNewsletter
-          geburtsdatum
+          anzahlFahrzeuge
+          gruendungsdatum
           homepage
-          geschlecht
-          familienstand
+          telefonnummer
           adresse {
             plz
             ort
+            land
           }
-          fachaerzte
           username
         }
       }
@@ -66,9 +65,9 @@ runtime:
     - expression: res.headers['content-type']
       operator: eq
       value: application/json
-    - expression: res.body.data.patienten
+    - expression: res.body.data.autohaeuser
       operator: isArray
-    - expression: res.body.data.patienten
+    - expression: res.body.data.autohaeuser
       operator: isNotEmpty
 
 settings:

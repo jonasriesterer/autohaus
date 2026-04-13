@@ -27,12 +27,19 @@ from strawberry.fastapi import GraphQLRouter
 from strawberry.types import Info
 
 from autohaus.config.graphql import graphql_ide
-from autohaus.graphql_api.graphql_types import Suchparameter
+from autohaus.graphql_api.graphql_types import (
+    AutohausInput,
+    CreatePayload,
+    LoginResult,
+    Suchparameter,
+)
 from autohaus.repository import AutohausRepository, Pageable
-from autohaus.security import Role, TokenService
+from autohaus.router.autohaus_model import AutohausModel
+from autohaus.security import Role, TokenService, UserService
 from autohaus.service import (
     AutohausDTO,
     AutohausService,
+    AutohausWriteService,
     NotFoundError,
 )
 
@@ -41,6 +48,10 @@ __all__ = ["Query", "graphql_router"]
 
 _repo: Final = AutohausRepository()
 _service: AutohausService = AutohausService(repo=_repo)
+_user_service: UserService = UserService()
+_write_service: AutohausWriteService = AutohausWriteService(
+    repo=_repo, user_service=_user_service
+)
 _token_service: Final = TokenService()
 
 
@@ -113,6 +124,57 @@ class Query:
             return []
         logger.debug("{}", autohaeuser_dto)
         return autohaeuser_dto.content
+
+
+@strawberry.type
+class Mutation:
+    """Mutations, um Autohausdaten anzulegen, zu ändern oder zu löschen."""
+
+    @strawberry.mutation
+    def create(self, autohaus_input: AutohausInput) -> CreatePayload:
+        """Einen neuen Autohaus anlegen.
+
+        :param autohaus_input: Daten des neuen Autohauses
+        :return: ID des neuen Autohauses
+        :rtype: CreatePayload
+        :raises EmailExistsError: Falls die Emailadresse bereits existiert
+        :raises UsernameExistsError: Falls der Benutzername bereits existiert
+        """
+        logger.debug("autohaus_input={}", autohaus_input)
+
+        autohaus_dict = autohaus_input.__dict__
+        autohaus_dict["adresse"] = autohaus_input.adresse.__dict__
+        # List Comprehension ab Python 2.0 (2000) https://peps.python.org/pep-0202
+        autohaus_dict["autos"] = [
+            auto.__dict__ for auto in autohaus_input.autos
+        ]
+
+        # Dictonary mit Pydantic validieren
+        autohaus_model: Final = AutohausModel.model_validate(autohaus_dict)
+
+        autohaus_dto: Final = _write_service.create(autohaus=autohaus_model.to_autohaus())  # noqa: E501
+        payload: Final = CreatePayload(id=autohaus_dto.id)  # pyright: ignore[reportArgumentType ]
+
+        logger.debug("{}", payload)
+        return payload
+
+    # Mutation, weil evtl. der Login-Zeitpunkt gespeichert wird
+    @strawberry.mutation
+    def login(self, username: str, password: str) -> LoginResult:
+        """Einen Token zu Benutzername und Passwort ermitteln.
+
+        :param username: Benutzername
+        :param password: Passwort
+        :rtype: LoginResult
+        """
+        logger.debug("username={}, password={}", username, password)
+        token_mapping = _token_service.token(username=username, password=password)
+
+        token = token_mapping["access_token"]
+        user = _token_service.get_user_from_token(token)
+        # List Comprehension ab Python 2.0 (2000) https://peps.python.org/pep-0202
+        roles: Final = [role.value for role in user.roles]
+        return LoginResult(token=token, expiresIn="1d", roles=roles)
 
 
 schema: Final = strawberry.Schema(query=Query)

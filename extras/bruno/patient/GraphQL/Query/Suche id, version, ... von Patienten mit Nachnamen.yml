@@ -12,28 +12,27 @@ graphql:
       disabled: true
   body:
     query: |-
-      query ($nachname: String = "Alice") {
-        patienten(suchparameter: {nachname: $nachname}) {
+      query ($name: String = "Test") {
+        autohaeuser(suchparameter: {name: $name}) {
           id
           version
+          name
+          username
           email
-          kategorie
-          hasNewsletter
-          geburtsdatum
+          anzahlFahrzeuge
+          gruendungsdatum
           homepage
-          geschlecht
-          familienstand
+          telefonnummer
           adresse {
             plz
             ort
+            land
           }
-          fachaerzte
-          username
         }
       }
     variables: |-
       {
-        "nachname": "Alice"
+        "name": "Test"
       }
   auth: inherit
 

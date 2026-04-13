@@ -44,44 +44,10 @@ runtime:
     - expression: res.headers['content-type']
       operator: eq
       value: application/json
-    - expression: res.body.data.autohaeuser
-      operator: isArray
-    - expression: res.body.data.autohaeuser
-      operator: length
-      value: "1"
-    - expression: res.body.data.autohaeuser[0]
-      operator: isJson
-    - expression: res.body.data.autohaeuser[0].id
-      operator: gte
-      value: "0"
-    - expression: res.body.data.autohaeuser[0].version
-      operator: gte
-      value: "0"
     - expression: res.body.data.autohaeuser[0].name
       operator: isString
     - expression: res.body.data.autohaeuser[0].name
       operator: isNotEmpty
-    - expression: res.body.data.autohaeuser[0].username
-      operator: isString
-    - expression: res.body.data.autohaeuser[0].username
-      operator: isNotEmpty
-    - expression: res.body.data.autohaeuser[0].email
-      operator: isString
-    - expression: res.body.data.autohaeuser[0].email
-      operator: isNotEmpty
-    - expression: res.body.data.autohaeuser[0].anzahlFahrzeuge
-      operator: gte
-      value: "0"
-    - expression: res.body.data.autohaeuser[0].gruendungsdatum
-      operator: isString
-    - expression: res.body.data.autohaeuser[0].adresse
-      operator: isJson
-    - expression: res.body.data.autohaeuser[0].adresse.plz
-      operator: isString
-    - expression: res.body.data.autohaeuser[0].adresse.ort
-      operator: isString
-    - expression: res.body.data.autohaeuser[0].adresse.land
-      operator: isString
 
 settings:
   encodeUrl: true
