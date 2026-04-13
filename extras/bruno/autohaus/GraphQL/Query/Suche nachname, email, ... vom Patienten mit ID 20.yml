@@ -55,9 +55,9 @@ runtime:
     - expression: res.body.data.patient.version
       operator: gte
       value: "0"
-    - expression: res.body.data.patient.nachname
+    - expression: res.body.data.patient.name
       operator: isString
-    - expression: res.body.data.patient.nachname
+    - expression: res.body.data.patient.name
       operator: isNotEmpty
     - expression: res.body.data.patient.email
       operator: isString
