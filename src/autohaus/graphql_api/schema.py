@@ -115,6 +115,14 @@ class Query:
 
 schema: Final = strawberry.Schema(query=Query)
 
+Context = dict[str, Request]
+
+
+# Dependency Injection: Request von FastAPI weiterreichen an den Kontext von Strawberry
+def get_context(request: Request) -> Context:
+    return {"request": request}
+
+
 # https://strawberry.rocks/docs/integrations/fastapi
 graphql_router: Final = GraphQLRouter[Context](
     schema, context_getter=get_context, graphql_ide=graphql_ide
