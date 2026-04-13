@@ -39,6 +39,7 @@ from autohaus.config.dev.keycloak_populate import keycloak_populate
 from autohaus.config.dev.keycloak_populate_router import (
     router as keycloak_populate_router,
 )
+from autohaus.graphql_api import graphql_router
 from autohaus.problem_details import create_problem_details
 from autohaus.repository.session_factory import engine
 from autohaus.router import (
@@ -131,6 +132,12 @@ if dev_db_populate:
     app.include_router(db_populate_router, prefix="/dev")
 if dev_keycloak_populate:
     app.include_router(keycloak_populate_router, prefix="/dev")
+
+
+# --------------------------------------------------------------------------------------
+# G r a p h Q L
+# --------------------------------------------------------------------------------------
+app.include_router(graphql_router, prefix="/graphql")
 
 
 # --------------------------------------------------------------------------------------

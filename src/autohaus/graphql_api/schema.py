@@ -114,3 +114,8 @@ class Query:
 
 
 schema: Final = strawberry.Schema(query=Query)
+
+# https://strawberry.rocks/docs/integrations/fastapi
+graphql_router: Final = GraphQLRouter[Context](
+    schema, context_getter=get_context, graphql_ide=graphql_ide
+)

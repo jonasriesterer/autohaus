@@ -1,7 +1,7 @@
 info:
   name: Query
   type: folder
-  seq: 2
+  seq: 1
 
 request:
   auth:
@@ -19,9 +19,19 @@ request:
       id: credentials
       placement:
         header: Bearer
+      source: access_token
     settings:
       autoFetchToken: true
       autoRefreshToken: false
+  variables:
+    - name: username
+      value: admin
+    - name: password
+      value: p
+    - name: clientId
+      value: python-client
+    - name: clientSecret
+      value: 1ZrjDc99bHka9wjfXMa42NodHIxvjoOB
 
 docs:
   content: Mit der GraphQL-Schnittstelle werden Patientendaten gelesen.
