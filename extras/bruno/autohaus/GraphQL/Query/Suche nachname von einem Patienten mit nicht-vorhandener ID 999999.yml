@@ -13,8 +13,8 @@ graphql:
   body:
     query: |-
       {
-        patient(patientId: "999999") {
-          nachname
+        patient: autohaus(autohausId: "999999") {
+          name
         }
       }
   auth: inherit

@@ -34,5 +34,5 @@ request:
       value: 1ZrjDc99bHka9wjfXMa42NodHIxvjoOB
 
 docs:
-  content: Mit der GraphQL-Schnittstelle werden Patientendaten gelesen.
+  content: Mit der GraphQL-Schnittstelle werden Autohausdaten gelesen.
   type: text/markdown
