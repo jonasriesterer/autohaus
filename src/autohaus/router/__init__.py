@@ -21,6 +21,7 @@ from autohaus.router.autohaus_router import (
     get,
     get_by_id,
 )
+from autohaus.router.autohaus_write_router import autohaus_write_router
 from autohaus.router.health_router import liveness, readiness
 from autohaus.router.health_router import router as health_router
 from autohaus.router.shutdown_router import router as shutdown_router
@@ -28,6 +29,7 @@ from autohaus.router.shutdown_router import shutdown
 
 __all__: Sequence[str] = [
     "autohaus_router",
+    "autohaus_write_router",
     "get",
     "get_by_id",
     "health_router",

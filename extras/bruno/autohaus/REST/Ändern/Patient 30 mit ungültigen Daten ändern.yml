@@ -11,14 +11,14 @@ http:
       value: '"0"'
   params:
     - name: id
-      value: "30"
+      value: "1000"
       type: path
   body:
     type: json
     data: |-
       {
-          "name": "falscher_name_put",
-          "username": "testrest",
+          "name": "",
+          "username": "",
           "email": "falsche_email_put@",
           "anzahl_fahrzeuge": 0,
           "gruendungsdatum": "2022-03-03",
