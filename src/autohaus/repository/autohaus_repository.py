@@ -85,7 +85,7 @@ class AutohausRepository:
 
         # Iteration ueber die Schluessel des Dictionaries mit den Suchparameter
         for key, value in suchparameter.items():
-            if key == "nachname":
+            if key in ("name"):
                 autohaeuser = self._find_by_name(
                     teil=value, pageable=pageable, session=session
                 )

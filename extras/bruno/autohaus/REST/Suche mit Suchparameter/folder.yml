@@ -34,5 +34,5 @@ request:
       value: admin
 
 docs:
-  content: Suche nach Patienten über die REST-Schnittstellen mit flexiblen Suchparameter.
+  content: Suche nach Autohausdaten über die REST-Schnittstellen mit flexiblen Suchparametern.
   type: text/markdown
