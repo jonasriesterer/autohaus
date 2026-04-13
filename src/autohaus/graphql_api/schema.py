@@ -23,8 +23,10 @@ from typing import Final
 import strawberry
 from fastapi import Request
 from loguru import logger
+from strawberry.fastapi import GraphQLRouter
 from strawberry.types import Info
 
+from autohaus.config.graphql import graphql_ide
 from autohaus.graphql_api.graphql_types import Suchparameter
 from autohaus.repository import AutohausRepository, Pageable
 from autohaus.security import Role, TokenService
@@ -34,7 +36,7 @@ from autohaus.service import (
     NotFoundError,
 )
 
-__all__ = ["Query"]
+__all__ = ["Query", "graphql_router"]
 
 
 _repo: Final = AutohausRepository()

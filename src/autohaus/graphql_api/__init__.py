@@ -7,7 +7,7 @@ from autohaus.graphql_api.graphql_types import (
     CreatePayload,
     Suchparameter,
 )
-from autohaus.graphql_api.schema import Query
+from autohaus.graphql_api.schema import Query, graphql_router
 
 __all__ = [
     "AdresseInput",
@@ -16,4 +16,5 @@ __all__ = [
     "CreatePayload",
     "Query",
     "Suchparameter",
+    "graphql_router",
 ]
