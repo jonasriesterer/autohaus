@@ -1,5 +1,5 @@
 info:
-  name: Patient 30 mit bereits existierender Emailadresse ändern
+  name: Autohaus 30 mit bereits existierender Emailadresse ändern
   type: http
   seq: 7
 
@@ -17,12 +17,13 @@ http:
     type: json
     data: |-
       {
-          "nachname": "Aliceput",
+          "name": "Autohaus Test",
+          "username": "alice_put",
           "email": "alice@acme.de",
-          "kategorie": 9,
-          "has_newsletter": false,
-          "geburtsdatum": "2022-01-09",
-          "homepage": "https://www.acme.ch.put"
+          "anzahl_fahrzeuge": 9,
+          "gruendungsdatum": "2022-01-09",
+          "homepage": "https://www.acme.ch.put",
+          "telefonnummer": "+49 123 456789"
       }
   auth: inherit
 

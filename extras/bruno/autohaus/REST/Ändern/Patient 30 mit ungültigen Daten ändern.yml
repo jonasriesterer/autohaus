@@ -1,5 +1,5 @@
 info:
-  name: Patient 30 mit ungültigen Daten ändern
+  name: Autohaus 30 mit ungültigen Daten ändern
   type: http
   seq: 6
 
@@ -17,12 +17,13 @@ http:
     type: json
     data: |-
       {
-          "nachname": "falscher_nachname_put",
+          "name": "falscher_name_put",
+          "username": "testrest",
           "email": "falsche_email_put@",
-          "kategorie": 11,
-          "has_newsletter": false,
-          "geburtsdatum": "2022-03-03",
-          "homepage": "https://?!"
+          "anzahl_fahrzeuge": 0,
+          "gruendungsdatum": "2022-03-03",
+          "homepage": "https://?!",
+          "telefonnummer": "not-a-number"
       }
   auth: inherit
 
@@ -32,7 +33,7 @@ runtime:
       code: |-
         test('Fehlermeldungen im Response Body', () => {
           const body = res.getBody();
-          const props = ['nachname', 'email', 'kategorie', 'homepage'];
+          const props = ['name', 'username', 'email', 'anzahl_fahrzeuge', 'homepage', 'telefonnummer'];
 
           // FastAPI
           if (Object.keys(body).length == 1 && body.detail !== undefined) {

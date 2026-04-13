@@ -1,10 +1,10 @@
 info:
-  name: Nicht-vorhandener Patient 999999 ändern
+  name: Nicht-vorhandenes Autohaus 999999 löschen
   type: http
-  seq: 5
+  seq: 2
 
 http:
-  method: PUT
+  method: DELETE
   url: "{{restUrl}}/:id"
   headers:
     - name: If-Match
@@ -15,22 +15,14 @@ http:
       type: path
   body:
     type: json
-    data: |-
-      {
-          "nachname": "Alphaput",
-          "email": "alpha@acme.de.put",
-          "kategorie": 9,
-          "has_newsletter": false,
-          "geburtsdatum": "2022-01-09",
-          "homepage": "https://www.acme.ch.put"
-      }
+    data: ""
   auth: inherit
 
 runtime:
   assertions:
     - expression: res.status
       operator: eq
-      value: "404"
+      value: "204"
 
 settings:
   encodeUrl: true

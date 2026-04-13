@@ -1,0 +1,44 @@
+info:
+  name: Autohaus 30 ändern
+  type: http
+  seq: 1
+
+http:
+  method: PUT
+  url: "{{restUrl}}/:id"
+  headers:
+    - name: If-Match
+      value: '"0"'
+  params:
+    - name: id
+      value: "30"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+          "name": "Autohaus Test",
+          "username": "alpha_put",
+          "email": "alpha@acme.de.put",
+          "anzahl_fahrzeuge": 9,
+          "gruendungsdatum": "2022-01-09",
+          "homepage": "https://www.acme.ch.put",
+          "telefonnummer": "+49 123 456789"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "204"
+    - expression: res.body
+      operator: isString
+    - expression: res.body
+      operator: isEmpty
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
