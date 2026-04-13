@@ -156,3 +156,80 @@ class AutohausRepository:
         )
         count: Final = session.execute(statement).scalar()
         return count if count is not None else 0
+
+    def create(self, autohaus: Autohaus, session: Session) -> Autohaus:
+        """Speichere einen neuen Autohaus ab.
+
+        :param autohaus: Die Daten des neuen Autohauses ohne ID
+        :param session: Session für SQLAlchemy
+        :return: Der neu angelegte Autohaus mit generierter ID
+        :rtype: Autohaus
+        """
+        logger.debug(
+            "autohaus={}, autohaus.adresse={}, autohaus.autos={}",
+            autohaus,
+            autohaus.adresse,
+            autohaus.autos,
+        )
+        # https://docs.sqlalchemy.org/en/20/orm/session_basics.html#adding-new-or-existing-items
+        session.add(instance=autohaus)
+        # flush(), damit die ID aus der Sequence vor COMMIT fuer Logging verfuegbar ist
+        # https://docs.sqlalchemy.org/en/20/tutorial/orm_data_manipulation.html#flushing
+        session.flush(objects=[autohaus])
+        logger.debug("autohaus_id={}", autohaus.id)
+        return autohaus
+
+    def update(self, autohaus: Autohaus, session: Session) -> Autohaus | None:
+        """Aktualisiere einen Autohaus.
+
+        :param autohaus: Die neuen Autohausbereitungen
+        :param session: Session für SQLAlchemy
+        :return: Der aktualisierte Autohaus oder None, falls kein Autohaus mit der ID
+        existiert
+        :rtype: Autohaus | None
+        """
+        logger.debug("{}", autohaus)
+
+        if (
+            autohaus_db := self.find_by_id(autohaus_id=autohaus.id, session=session)
+        ) is None:
+            # Autohausbereitungen wurden i.a. zuvor in der Session aktualisiert
+            return None
+
+        # session.add(autohaus_db) nicht notwendig, da bereits in der Session zugegriffen  # noqa: E501
+        # CAVEAT: Die erhoehte Versionsnummer ist erst *nach* COMMIT sichtbar
+
+        logger.debug("{}", autohaus_db)
+        return autohaus_db
+
+    def delete_by_id(self, autohaus_id: int, session: Session) -> None:
+        """Lösche die Daten zu einem Autohaus.
+
+        :param autohaus_id: Die ID des zu löschenden Autohauses
+        :param session: Session für SQLAlchemy
+        """
+        logger.debug("autohaus_id={}", autohaus_id)
+
+        # delete(Autohaus).where(Autohaus.autohaus_id == autohaus_id) OHNE cascade
+        # "walrus operator" https://peps.python.org/pep-0572
+        if (autohaus := self.find_by_id(autohaus_id=autohaus_id, session=session)) is None:  # noqa: E501
+            return
+        session.delete(autohaus)
+        logger.debug("ok")
+
+    def exists_username(self, username: str | None, session: Session) -> bool:
+        """Abfrage, ob es den Benutzernamen bereits gibt.
+
+        :param username: Benutzername
+        :param session: Session für SQLAlchemy
+        :return: True, falls es den Benutzernamen bereits gibt
+        :rtype: bool
+        """
+        logger.debug("username={}", username)
+        if username is None:
+            return False
+
+        statement: Final = select(Autohaus.username).filter_by(username=username)
+        username_db: Final = session.scalar(statement)
+        logger.debug("username_db={}", username_db)
+        return username_db is not None
