@@ -44,6 +44,7 @@ from autohaus.problem_details import create_problem_details
 from autohaus.repository.session_factory import engine
 from autohaus.router import (
     autohaus_router,
+    autohaus_write_router,
     health_router,
     shutdown_router,
 )
@@ -124,6 +125,7 @@ async def log_response_time(
 # R E S T
 # --------------------------------------------------------------------------------------
 app.include_router(autohaus_router, prefix="/rest")
+app.include_router(autohaus_write_router, prefix="/rest")
 app.include_router(auth_router, prefix="/auth")
 app.include_router(health_router, prefix="/health")
 app.include_router(shutdown_router, prefix="/admin")
