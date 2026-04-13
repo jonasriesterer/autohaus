@@ -1,28 +1,29 @@
 info:
-  name: Patient 30 mit falscher Versionsnummer ändern
+  name: Nicht-vorhandenes Autohaus 999999 ändern
   type: http
-  seq: 2
+  seq: 5
 
 http:
   method: PUT
   url: "{{restUrl}}/:id"
   headers:
     - name: If-Match
-      value: "0"
+      value: '"0"'
   params:
     - name: id
-      value: "30"
+      value: "999999"
       type: path
   body:
     type: json
     data: |-
       {
-          "nachname": "Alphaput",
+          "name": "Autohaus Test",
+          "username": "alpha_put",
           "email": "alpha@acme.de.put",
-          "kategorie": 9,
-          "has_newsletter": false,
-          "geburtsdatum": "2022-01-09",
-          "homepage": "https://www.acme.ch.put"
+          "anzahl_fahrzeuge": 9,
+          "gruendungsdatum": "2022-01-09",
+          "homepage": "https://www.acme.ch.put",
+          "telefonnummer": "+49 123 456789"
       }
   auth: inherit
 
@@ -30,7 +31,7 @@ runtime:
   assertions:
     - expression: res.status
       operator: eq
-      value: "412"
+      value: "404"
 
 settings:
   encodeUrl: true

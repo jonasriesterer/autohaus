@@ -1,5 +1,5 @@
 info:
-  name: Neuer Patient
+  name: Neues Autohaus
   type: http
   seq: 1
 
@@ -14,28 +14,26 @@ http:
     type: json
     data: |-
       {
-          "nachname": "Nachnamerest",
+          "name": "Autohaus Test",
+          "username": "testrest",
           "email": "testrest@test.rest",
-          "kategorie": 1,
-          "has_newsletter": true,
-          "geburtsdatum": "2022-02-01",
+          "anzahl_fahrzeuge": 5,
+          "gruendungsdatum": "2022-02-01",
           "homepage": "https://test.rest",
-          "geschlecht": "W",
-          "familienstand": "L",
+          "telefonnummer": "+49 123 456789",
           "adresse": {
               "plz": "99999",
-              "ort": "Restort"
+              "ort": "Restort",
+              "land": "Testland"
           },
-          "rechnungen": [
+          "autos": [
               {
-                  "betrag": "999.99",
-                  "waehrung": "EUR"
+                  "kennzeichen": "AB123CD",
+                  "marke": "VW",
+                  "modell": "Golf",
+                  "baujahr": "2020"
               }
-          ],
-          "fachaerzte": [
-              "N"
-          ],
-          "username": "testrest"
+          ]
       }
   auth: inherit
 

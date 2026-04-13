@@ -1,5 +1,5 @@
 info:
-  name: Patient 30 mit alter Versionsnummer ändern
+  name: Autohaus 30 mit alter Versionsnummer ändern
   type: http
   seq: 4
 
@@ -17,12 +17,13 @@ http:
     type: json
     data: |-
       {
-          "nachname": "Alphaput",
+          "name": "Autohaus Test",
+          "username": "alpha_put",
           "email": "alpha@acme.de.put",
-          "kategorie": 9,
-          "has_newsletter": false,
-          "geburtsdatum": "2022-01-09",
-          "homepage": "https://www.acme.ch.put"
+          "anzahl_fahrzeuge": 9,
+          "gruendungsdatum": "2022-01-09",
+          "homepage": "https://www.acme.ch.put",
+          "telefonnummer": "+49 123 456789"
       }
   auth: inherit
 
