@@ -124,7 +124,6 @@ class DbPopulateService:
                     csv_path=csv_path,
                     connection=connection,
                 )
-                self._reset_identity_sequence(tabelle=tabelle, connection=connection)
                 connection.commit()
         self.engine_admin.dispose()
 
@@ -144,15 +143,6 @@ class DbPopulateService:
             + "/${TABELLE}.csv' (FORMAT csv, QUOTE '\"', DELIMITER ';', HEADER true);",
         ).substitute(TABELLE=tabelle)
         connection.execute(text(copy_cmd))
-
-    def _reset_identity_sequence(self, tabelle: str, connection: Connection) -> None:
-        """Die IDENTITY-Sequenz nach einem CSV-Import auf den Maximalwert setzen."""
-        logger.debug("reset identity sequence for table={}", tabelle)
-        reset_seq = text(
-            "SELECT setval(pg_get_serial_sequence('" + tabelle + "', 'id'), "
-            "COALESCE((SELECT MAX(id) FROM " + tabelle + "), 0) + 1, false);"
-        )
-        connection.execute(reset_seq)
 
 
 def get_db_populate_service() -> DbPopulateService:
