@@ -20,7 +20,10 @@ from typing import Annotated
 from fastapi import Depends
 
 from autohaus.repository.autohaus_repository import AutohausRepository
+from autohaus.security.dependencies import get_user_service
+from autohaus.security.user_service import UserService
 from autohaus.service.autohaus_service import AutohausService
+from autohaus.service.autohaus_write_service import AutohausWriteService
 
 
 def get_repository() -> AutohausRepository:
@@ -37,3 +40,11 @@ def get_service(
 ) -> AutohausService:
     """Factory-Funktion für AutohausService."""
     return AutohausService(repo=repo)
+
+
+def get_write_service(
+    repo: Annotated[AutohausRepository, Depends(get_repository)],
+    user_service: Annotated[UserService, Depends(get_user_service)],
+) -> AutohausWriteService:
+    """Factory-Funktion für AutohausWriteService."""
+    return AutohausWriteService(repo=repo, user_service=user_service)
