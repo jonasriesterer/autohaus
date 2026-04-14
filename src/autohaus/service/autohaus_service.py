@@ -61,8 +61,9 @@ class AutohausService:
         # am Endes des Blocks schliesst
         with Session() as session:
             if (
-                autohaus := self.repo.find_by_id(autohaus_id=autohaus_id,
-                session=session)
+                autohaus := self.repo.find_by_id(
+                    autohaus_id=autohaus_id, session=session
+                )
             ) is None:
                 message: Final = f"Kein Autohaus mit der ID {autohaus_id}"
                 logger.debug("NotFoundError: {}", message)
@@ -125,11 +126,10 @@ class AutohausService:
 
         worksheet.append(["Name", "anzahl_fahrzeuge", "gruendungsdatum"])
         for autohaus in autohaeuser:
-
             worksheet.append((
                 autohaus.name,
                 autohaus.anzahl_fahrzeuge,
-                autohaus.gruendungsdatum
+                autohaus.gruendungsdatum,
             ))
 
         timestamp: Final = datetime.now().strftime("%Y-%m-%d_%H%M%S")

@@ -1,3 +1,4 @@
+# ruff: noqa: S101
 """Tests für Health-Checks."""
 
 from http import HTTPStatus
@@ -11,6 +12,7 @@ from pytest import mark
 @mark.rest
 @mark.health
 def test_liveness() -> None:
+    """Liveness endpoint returns OK and status up."""
     # act
     response: Final = get(f"{health_url}/liveness", verify=ctx)
 
@@ -25,6 +27,7 @@ def test_liveness() -> None:
 @mark.rest
 @mark.health
 def test_readiness() -> None:
+    """Readiness endpoint returns OK and database status up."""
     # act
     response: Final = get(f"{health_url}/readiness", verify=ctx)
 

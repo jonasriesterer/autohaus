@@ -17,6 +17,7 @@
 
 Alternative: https://github.com/graphql-python/graphene.
 """
+
 from collections.abc import Sequence
 from typing import Final
 
@@ -145,14 +146,14 @@ class Mutation:
         autohaus_dict = autohaus_input.__dict__
         autohaus_dict["adresse"] = autohaus_input.adresse.__dict__
         # List Comprehension ab Python 2.0 (2000) https://peps.python.org/pep-0202
-        autohaus_dict["autos"] = [
-            auto.__dict__ for auto in autohaus_input.autos
-        ]
+        autohaus_dict["autos"] = [auto.__dict__ for auto in autohaus_input.autos]
 
         # Dictonary mit Pydantic validieren
         autohaus_model: Final = AutohausModel.model_validate(autohaus_dict)
 
-        autohaus_dto: Final = _write_service.create(autohaus=autohaus_model.to_autohaus())  # noqa: E501
+        autohaus_dto: Final = _write_service.create(
+            autohaus=autohaus_model.to_autohaus()
+        )  # noqa: E501
         payload: Final = CreatePayload(id=autohaus_dto.id)  # pyright: ignore[reportArgumentType ]
 
         logger.debug("{}", payload)

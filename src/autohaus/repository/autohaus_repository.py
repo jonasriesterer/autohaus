@@ -239,7 +239,9 @@ class AutohausRepository:
 
         # delete(Autohaus).where(Autohaus.autohaus_id == autohaus_id) OHNE cascade
         # "walrus operator" https://peps.python.org/pep-0572
-        if (autohaus := self.find_by_id(autohaus_id=autohaus_id, session=session)) is None:  # noqa: E501
+        if (
+            autohaus := self.find_by_id(autohaus_id=autohaus_id, session=session)
+        ) is None:  # noqa: E501
             return
         session.delete(autohaus)
         logger.debug("ok")

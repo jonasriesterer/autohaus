@@ -26,7 +26,9 @@ from pytest import mark
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("email", ["kontakt@autohaus-karlsruhe.de", "kontakt@autohaus-stuttgart.de"])  # WIP  # noqa: E501
+@mark.parametrize(
+    "email", ["kontakt@autohaus-karlsruhe.de", "kontakt@autohaus-stuttgart.de"]
+)  # WIP  # noqa: E501
 def test_get_by_email(email: str) -> None:
     # arrange
     params = {"email": email}

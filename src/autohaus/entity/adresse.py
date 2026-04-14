@@ -53,6 +53,5 @@ class Adresse(Base):
     def __repr__(self) -> str:
         """Ausgabe einer Adresse als String ohne die Autohausdaten."""
         return (
-            f"Adresse(id={self.id}, plz={self.plz}, ort={self.ort}, "
-            f"land={self.land})"
+            f"Adresse(id={self.id}, plz={self.plz}, ort={self.ort}, land={self.land})"
         )

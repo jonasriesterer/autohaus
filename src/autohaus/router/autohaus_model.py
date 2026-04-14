@@ -47,8 +47,6 @@ class AutohausModel(AutohausUpdateModel):
 
         autohaus: Final = Autohaus(**autohaus_dict)
         autohaus.adresse = self.adresse.to_adresse()
-        autohaus.autos = [
-            auto_model.to_auto() for auto_model in self.autos
-        ]
+        autohaus.autos = [auto_model.to_auto() for auto_model in self.autos]
         logger.debug("autohaus={}", autohaus)
         return autohaus

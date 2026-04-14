@@ -196,7 +196,9 @@ def test_get_by_id_etag(autohaus_id: int, if_none_match: str) -> None:
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("autohaus_id,if_none_match", [(100, 'xxx"'), (101, "xxx"), (102, "xxx")])  # noqa: E501
+@mark.parametrize(
+    "autohaus_id,if_none_match", [(100, 'xxx"'), (101, "xxx"), (102, "xxx")]
+)  # noqa: E501
 def test_get_by_id_etag_invalid(autohaus_id: int, if_none_match: str) -> None:
     # arrange
     token: Final = login()
