@@ -65,7 +65,7 @@ def test_find_by_name(autohaus_service, session_mock) -> None:
         anzahl_fahrzeuge=50,
         gruendungsdatum=date(2025, 1, 31),
         homepage="https://www.test.de",
-        telefonnummer="0123456789",
+        telefonnummer="0123456789",  # noqa: FURB156
         adresse=adresse_mock,
         autos=[],
     )
