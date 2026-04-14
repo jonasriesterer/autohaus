@@ -66,9 +66,9 @@ def test_post() -> None:
 def test_post_invalid() -> None:
     # arrange
     neues_autohaus_invalid: Final = {
-        "name": "a",  # Angenommen: Name zu kurz
+        "name": "a",  
         "email": "falsche_email@",
-        "anzahl_fahrzeuge": -5,  # Angenommen: Darf nicht negativ sein
+        "anzahl_fahrzeuge": -5,  
         "gruendungsdatum": "2022-02-01",
         "homepage": "https://?!",
         "telefonnummer": "0721123456",
@@ -100,7 +100,7 @@ def test_post_invalid() -> None:
 @mark.post_request
 def test_post_email_exists() -> None:
     # arrange
-    email_exists: Final = "info@autohaus-acme.de"  # ACHTUNG: Muss in DB existieren!
+    email_exists: Final = "info@autohaus-acme.de"  # WIP
     neues_autohaus: Final = {
         "name": "Autohaus Rest",
         "email": email_exists,
