@@ -28,3 +28,5 @@ dependency-check-report.html
 extras/compose/db/postgres/db_password.txt
 src/autohaus/config/resources/tls/private-key.pem
 sonar-project.properties
+extras/compose/autohaus/app.toml
+src/autohaus/config/resources/app.toml
