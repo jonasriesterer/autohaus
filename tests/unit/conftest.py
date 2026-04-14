@@ -87,7 +87,7 @@ def user_service(keycloak_admin_mock) -> UserService:
     keycloak_admin_mock.get_client_roles.return_value = [
         autohaus_rolle_mock,
         patient_rolle_mock,
-    ]  # noqa: E501
+    ]
     return UserService()
 
 

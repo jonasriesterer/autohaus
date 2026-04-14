@@ -117,7 +117,7 @@ class AutohausWriteService:
             if (
                 autohaus_updated := self.repo.update(
                     autohaus=autohaus_db, session=session
-                )  # noqa: E501
+                )
             ) is None:
                 raise NotFoundError(autohaus_id)
             autohaus_dto: Final = AutohausDTO(autohaus_updated)

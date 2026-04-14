@@ -41,7 +41,7 @@ def test_post() -> None:
         "adresse": {"plz": "99999", "ort": "Restort", "land": "Deutschland"},
         "autos": [
             {"kennzeichen": "KARE123", "marke": "VW", "modell": "Golf", "baujahr": 2020}
-        ],  # noqa: E501
+        ],
         "username": "testrest",
     }
     headers = {"Content-Type": "application/json"}
@@ -112,7 +112,7 @@ def test_post_email_exists() -> None:
         "adresse": {"plz": "99999", "ort": "Restort", "land": "Deutschland"},
         "autos": [
             {"kennzeichen": "KARE123", "marke": "VW", "modell": "Golf", "baujahr": 2020}
-        ],  # noqa: E501
+        ],
         "username": "emailexists",
     }
     headers = {"Content-Type": "application/json"}

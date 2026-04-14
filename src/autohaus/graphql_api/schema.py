@@ -153,7 +153,7 @@ class Mutation:
 
         autohaus_dto: Final = _write_service.create(
             autohaus=autohaus_model.to_autohaus()
-        )  # noqa: E501
+        )
         payload: Final = CreatePayload(id=autohaus_dto.id)  # pyright: ignore[reportArgumentType ]
 
         logger.debug("{}", payload)
