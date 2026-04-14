@@ -121,7 +121,7 @@ dependencies = [
     # Foreign Function Interface for Python calling C code, z.B. in cryptography
     "cffi>=2.0.0",
     # https://cryptography.io fuer python-keycloak bzw. jwcrypto
-    "cryptography>=46.0.5",
+    "cryptography>=46.0.7",
     # Fuer Pydantic zur Validierung https://github.com/JoshData/python-email-validator
     "email-validator>=2.3.0",
     # https://fastapi.tiangolo.com einschl. starlette, pydantic, uvicorn
@@ -168,7 +168,7 @@ dependencies = [
     "PyYAML>=6.0.3",
     # https://requests.readthedocs.io
     # fuer python-keycloak
-    "requests==2.32.5",
+    "requests==2.33.0",
     # https://www.sqlalchemy.org
     # nutzt greenlet: unterstuetzt NICHT free-threaded CPython
     "SQLAlchemy>=2.0.48",
@@ -177,7 +177,7 @@ dependencies = [
     # "starlette>=1.0.0",
     "starlette>=0.52.1",
     # https://strawberry.rocks https://github.com/strawberry-graphql/strawberry
-    "strawberry-graphql>=0.311.3",
+    "strawberry-graphql>=0.312.3",
     # https://github.com/astanin/python-tabulate
     "tabulate>=0.10.0",
     # https://urllib3.readthedocs.io
@@ -220,7 +220,7 @@ dev = [
     # https://locust.io
     "locust>=2.43.3",
     # https://pytest.org
-    "pytest>=9.0.2",
+    "pytest>=9.0.3",
     # https://pytest-cov.readthedocs.io
     "pytest-cov>=7.0.0",
     # https://github.com/pytest-dev/pytest-env
@@ -229,6 +229,8 @@ dev = [
     "pytest-html>=4.2.0",
     # https://github.com/pytest-dev/pytest-mock
     "pytest-mock>=3.15.1",
+    # https://pygments.org
+    "Pygments>=2.20.0",
     # Locust > Flask > Werkzeug
     "Werkzeug>=3.1.6",
 ]
