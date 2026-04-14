@@ -76,7 +76,15 @@ def user_service(keycloak_admin_mock) -> UserService:
         "clientRole": True,
         "containerId": uuid_mock,
     }
-    keycloak_admin_mock.get_client_roles.return_value = [autohaus_rolle_mock]
+    patient_rolle_mock = {
+        "id": "87654321-4321-4321-4321-210987654321",
+        "name": "patient",
+        "description": "",
+        "composite": False,
+        "clientRole": True,
+        "containerId": uuid_mock,
+    }
+    keycloak_admin_mock.get_client_roles.return_value = [autohaus_rolle_mock, patient_rolle_mock]  # noqa: E501
     return UserService()
 
 
