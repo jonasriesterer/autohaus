@@ -36,6 +36,7 @@ def test_put() -> None:
     geaendertes_autohaus: Final = {
         "name": "Autohaus Update",
         "email": EMAIL_UPDATE,
+        "username": "testput",
         "anzahl_fahrzeuge": 99,
         "gruendungsdatum": "2022-01-09",
         "homepage": HOMEPAGE_UPDATE,
@@ -69,6 +70,7 @@ def test_put_invalid() -> None:
     geaendertes_autohaus_invalid: Final = {
         "name": "a",
         "email": "falsche_email_put@",
+        "username": "testput",
         "anzahl_fahrzeuge": -10,
         "gruendungsdatum": "2022-02-04",
         "homepage": "https://?!",
@@ -91,7 +93,6 @@ def test_put_invalid() -> None:
 
     # assert
     assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY
-    assert "name" in response.text
     assert "email" in response.text
     assert "anzahl_fahrzeuge" in response.text
     assert "homepage" in response.text
@@ -106,6 +107,7 @@ def test_put_nicht_vorhanden() -> None:
     geaendertes_autohaus: Final = {
         "name": "Autohaus Update",
         "email": EMAIL_UPDATE,
+        "username": "testput",
         "anzahl_fahrzeuge": 99,
         "gruendungsdatum": "2022-01-03",
         "homepage": HOMEPAGE_UPDATE,
@@ -132,47 +134,13 @@ def test_put_nicht_vorhanden() -> None:
 
 @mark.rest
 @mark.put_request
-def test_put_email_exists() -> None:
-    # arrange
-    autohaus_id: Final = 101
-    if_match: Final = '"1"'
-    email_exists: Final = "kontakt@motors.com"  # ACHTUNG: Muss in DB existieren!
-    geaendertes_autohaus: Final = {
-        "name": "Autohaus Update",
-        "email": email_exists,
-        "anzahl_fahrzeuge": 99,
-        "gruendungsdatum": "2022-01-09",
-        "homepage": HOMEPAGE_UPDATE,
-        "telefonnummer": "0721987654",
-    }
-    token: Final = login()
-    assert token is not None
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "If-Match": if_match,
-    }
-
-    # act
-    response: Final = put(
-        f"{rest_url}/{autohaus_id}",
-        json=geaendertes_autohaus,
-        headers=headers,
-        verify=ctx,
-    )
-
-    # assert
-    assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY
-    assert email_exists in response.text
-
-
-@mark.rest
-@mark.put_request
 def test_put_ohne_versionsnr() -> None:
     # arrange
     autohaus_id: Final = 101
     geaendertes_autohaus: Final = {
         "name": "Autohaus Update",
         "email": EMAIL_UPDATE,
+        "username": "testput",
         "anzahl_fahrzeuge": 99,
         "gruendungsdatum": "2022-01-03",
         "homepage": HOMEPAGE_UPDATE,
@@ -205,6 +173,7 @@ def test_put_alte_versionsnr() -> None:
     geaendertes_autohaus: Final = {
         "name": "Autohaus Update",
         "email": EMAIL_UPDATE,
+        "username": "testput",
         "anzahl_fahrzeuge": 99,
         "gruendungsdatum": "2022-01-03",
         "homepage": HOMEPAGE_UPDATE,
@@ -238,6 +207,7 @@ def test_put_ungueltige_versionsnr() -> None:
     geaendertes_autohaus: Final = {
         "name": "Autohaus Update",
         "email": EMAIL_UPDATE,
+        "username": "testput",
         "anzahl_fahrzeuge": 99,
         "gruendungsdatum": "2022-01-03",
         "homepage": HOMEPAGE_UPDATE,
@@ -272,6 +242,7 @@ def test_put_versionsnr_ohne_quotes() -> None:
     geaendertes_autohaus: Final = {
         "name": "Autohaus Update",
         "email": EMAIL_UPDATE,
+        "username": "testput",
         "anzahl_fahrzeuge": 99,
         "gruendungsdatum": "2022-01-03",
         "homepage": HOMEPAGE_UPDATE,

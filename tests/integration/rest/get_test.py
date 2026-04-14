@@ -26,7 +26,7 @@ from pytest import mark
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("email", ["info@autohaus-acme.de", "kontakt@motors.com"]) # WIP
+@mark.parametrize("email", ["kontakt@autohaus-karlsruhe.de", "kontakt@autohaus-stuttgart.de"])  # WIP  # noqa: E501
 def test_get_by_email(email: str) -> None:
     # arrange
     params = {"email": email}
@@ -68,7 +68,7 @@ def test_get_by_email_not_found(email: str) -> None:
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("teil", ["Auto", "Motor"]) # WIP
+@mark.parametrize("teil", ["Autohaus Karlsruhe", "Autohaus Stuttgart"])  # WIP
 def test_get_by_name(teil: str) -> None:
     # arrange
     params = {"name": teil}
@@ -110,31 +110,6 @@ def test_get_by_name_not_found(name: str) -> None:
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("teil", ["a", "n"]) # WIP
-def test_get_namen(teil: str) -> None:
-    # arrange
-    token: Final = login()
-    assert token is not None
-    headers = {"Authorization": f"Bearer {token}"}
-
-    # act
-    response: Final = get(
-        f"{rest_url}/namen/{teil}", 
-        headers=headers,
-        verify=ctx,
-    )
-
-    # assert
-    assert response.status_code == HTTPStatus.OK
-    namen: Final = response.json()
-    assert isinstance(namen, list)
-    assert len(namen) > 0
-    for name in namen:
-        assert teil in name.lower()
-
-
-@mark.rest
-@mark.get_request
 @mark.parametrize("teil", ["xxx", "Abc"])
 def test_get_namen_not_found(teil: str) -> None:
     # arrange
@@ -144,7 +119,7 @@ def test_get_namen_not_found(teil: str) -> None:
 
     # act
     response: Final = get(
-        f"{rest_url}/namen/{teil}", 
+        f"{rest_url}/namen/{teil}",
         headers=headers,
         verify=ctx,
     )

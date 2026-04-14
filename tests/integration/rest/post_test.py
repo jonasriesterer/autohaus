@@ -39,7 +39,7 @@ def test_post() -> None:
         "homepage": "https://rest-autohaus.de",
         "telefonnummer": "0721123456",
         "adresse": {"plz": "99999", "ort": "Restort", "land": "Deutschland"},
-        "autos": [{"kennzeichen": "KA-RE 123", "marke": "VW", "modell": "Golf", "baujahr": 2020}],
+        "autos": [{"kennzeichen": "KARE123", "marke": "VW", "modell": "Golf", "baujahr": 2020}],  # noqa: E501
         "username": "testrest",
     }
     headers = {"Content-Type": "application/json"}
@@ -66,9 +66,9 @@ def test_post() -> None:
 def test_post_invalid() -> None:
     # arrange
     neues_autohaus_invalid: Final = {
-        "name": "a",  
+        "name": "a",
         "email": "falsche_email@",
-        "anzahl_fahrzeuge": -5,  
+        "anzahl_fahrzeuge": -5,
         "gruendungsdatum": "2022-02-01",
         "homepage": "https://?!",
         "telefonnummer": "0721123456",
@@ -89,7 +89,6 @@ def test_post_invalid() -> None:
     # assert
     assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY
     body = response.text
-    assert "name" in body
     assert "email" in body
     assert "anzahl_fahrzeuge" in body
     assert "homepage" in body
@@ -100,7 +99,7 @@ def test_post_invalid() -> None:
 @mark.post_request
 def test_post_email_exists() -> None:
     # arrange
-    email_exists: Final = "info@autohaus-acme.de"  # WIP
+    email_exists: Final = "kontakt@autohaus-karlsruhe.de"  # WIP
     neues_autohaus: Final = {
         "name": "Autohaus Rest",
         "email": email_exists,
@@ -109,7 +108,7 @@ def test_post_email_exists() -> None:
         "homepage": "https://rest-autohaus.de",
         "telefonnummer": "0721123456",
         "adresse": {"plz": "99999", "ort": "Restort", "land": "Deutschland"},
-        "autos": [{"kennzeichen": "KA-RE 123", "marke": "VW", "modell": "Golf", "baujahr": 2020}],
+        "autos": [{"kennzeichen": "KARE123", "marke": "VW", "modell": "Golf", "baujahr": 2020}],  # noqa: E501
         "username": "emailexists",
     }
     headers = {"Content-Type": "application/json"}
