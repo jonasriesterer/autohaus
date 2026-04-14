@@ -1,0 +1,78 @@
+' Copyright (C) 2019 - present Juergen Zimmermann, Hochschule Karlsruhe
+'
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+'
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+'
+' You should have received a copy of the GNU General Public License
+' along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+' Preview durch <Alt>d
+
+@startuml Komponenten
+
+left to right direction
+
+actor RESTClient
+actor GraphQLClient
+
+node "autohaus" {
+  [autohaus_get_controller]
+  [autohaus_write_controller]
+  [graphql_schema]
+
+  [autohaus_read_service]
+  [autohaus_write_service]
+
+  [autohaus_repository]
+
+  [mailer]
+}
+
+cloud {
+    [SQLAlchemy]
+}
+
+cloud {
+    [smtp]
+}
+
+database "DB autohaus" {
+    [Tabelle autohaus]
+    [Tabelle adresse]
+    [Tabelle auto]
+}
+
+node {
+    [Mailserver]
+}
+
+RESTClient ~~> [autohaus_get_controller]
+RESTClient ~~> [autohaus_write_controller]
+GraphQLClient ~~> [graphql_schema]
+
+[autohaus_get_controller] ..> [autohaus_read_service]
+[autohaus_write_controller] ..> [autohaus_write_service]
+[graphql_schema] ..> [autohaus_read_service]
+[graphql_schema] ..> [autohaus_write_service]
+[autohaus_read_service] ..> [autohaus_repository]
+[autohaus_write_service] ..> [autohaus_repository]
+
+[autohaus_repository] ~~> [SQLAlchemy]
+[SQLAlchemy] ~~> [Tabelle autohaus]
+[SQLAlchemy] ~~> [Tabelle adresse]
+[SQLAlchemy] ~~> [Tabelle auto]
+
+[autohaus_write_service] ..> [mailer]
+[mailer] ~~> [smtp]
+[smtp] ~~> [Mailserver]
+
+footer (c) Jürgen Zimmermann
+
+@enduml

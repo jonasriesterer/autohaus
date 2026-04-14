@@ -1,0 +1,65 @@
+' Copyright (C) 2023 - present Juergen Zimmermann, Hochschule Karlsruhe
+'
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+'
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+'
+' You should have received a copy of the GNU General Public License
+' along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+' Preview durch <Alt>d
+
+@startuml ER Diagramm
+
+' hide the spot
+hide circle
+
+' evtl. Prbleme mit Kraehenfuessen vermeiden
+skinparam linetype ortho
+
+entity "Autohaus" {
+  * id : integer <<generated>>
+  * version : integer
+  --
+  * name : text
+  * username : text <<unique>>
+  * email : text <<unique>>
+  * anzahl_fahrzeuge : integer
+  * gruendungsdatum : date
+    homepage : text
+    telefonnummer : text
+    erzeugt : timestamp
+    aktualisiert : timestamp
+}
+
+entity "Adresse" {
+  * id : integer <<generated>>
+  --
+  * plz : text
+  * ort : text
+  * land : text
+  * autohaus_id : integer <<FK>>
+}
+
+entity "Auto" {
+  * id : integer <<generated>>
+  --
+  * kennzeichen : text
+  * marke : text
+  * modell : text
+  * baujahr : decimal
+  * autohaus_id : integer <<FK>>
+}
+
+Autohaus ||.left.|| Adresse
+Autohaus ||..o{ Auto
+
+footer (c) Juergen Zimmermann
+
+@enduml
