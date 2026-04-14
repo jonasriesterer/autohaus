@@ -26,7 +26,7 @@ from pytest import mark
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("email", ["info@autohaus-acme.de", "kontakt@motors.com"]) # ACHTUNG: An Test-DB anpassen!
+@mark.parametrize("email", ["info@autohaus-acme.de", "kontakt@motors.com"]) # WIP
 def test_get_by_email(email: str) -> None:
     # arrange
     params = {"email": email}
@@ -68,7 +68,7 @@ def test_get_by_email_not_found(email: str) -> None:
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("teil", ["Auto", "Motor"]) # ACHTUNG: An Test-DB anpassen!
+@mark.parametrize("teil", ["Auto", "Motor"]) # WIP
 def test_get_by_name(teil: str) -> None:
     # arrange
     params = {"name": teil}
@@ -110,7 +110,7 @@ def test_get_by_name_not_found(name: str) -> None:
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("teil", ["a", "n"]) # ACHTUNG: An Test-DB anpassen!
+@mark.parametrize("teil", ["a", "n"]) # WIP
 def test_get_namen(teil: str) -> None:
     # arrange
     token: Final = login()
@@ -119,7 +119,7 @@ def test_get_namen(teil: str) -> None:
 
     # act
     response: Final = get(
-        f"{rest_url}/namen/{teil}", # Endpoint angepasst!
+        f"{rest_url}/namen/{teil}", 
         headers=headers,
         verify=ctx,
     )
@@ -144,7 +144,7 @@ def test_get_namen_not_found(teil: str) -> None:
 
     # act
     response: Final = get(
-        f"{rest_url}/namen/{teil}", # Endpoint angepasst!
+        f"{rest_url}/namen/{teil}", 
         headers=headers,
         verify=ctx,
     )
