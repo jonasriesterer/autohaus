@@ -1,12 +1,15 @@
 info:
   name: Suche mit ID Bearer Token
   type: folder
-  seq: 5
+  seq: 1
 
 request:
   auth:
     type: bearer
     token: "{{TOKEN}}"
+  variables:
+    - name: TOKEN
+      value: 55bcf287-aee6-4b20-b238-c7beb77e25e7
   scripts:
     - type: before-request
       code: |-
@@ -33,5 +36,5 @@ request:
         bru.setVar('TOKEN', token);
 
 docs:
-  content: Suche nach Patienten über die REST-Schnittstellen anhand der ID.
+  content: Suche nach Autohausdaten über die REST-Schnittstellen anhand der ID.
   type: text/markdown

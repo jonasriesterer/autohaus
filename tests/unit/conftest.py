@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Fixture für pytest: Repository, Autohaus(Write)Service, KeycloakAdmin, UserService."""
+"""Fixture für pytest: Repository, AutohausService, KeycloakAdmin, UserService."""
 
 from keycloak import KeycloakAdmin
 from pytest import fixture
@@ -76,7 +76,15 @@ def user_service(keycloak_admin_mock) -> UserService:
         "clientRole": True,
         "containerId": uuid_mock,
     }
-    keycloak_admin_mock.get_client_roles.return_value = [autohaus_rolle_mock]
+    patient_rolle_mock = {
+        "id": "87654321-4321-4321-4321-210987654321",
+        "name": "patient",
+        "description": "",
+        "composite": False,
+        "clientRole": True,
+        "containerId": uuid_mock,
+    }
+    keycloak_admin_mock.get_client_roles.return_value = [autohaus_rolle_mock, patient_rolle_mock]  # noqa: E501
     return UserService()
 
 

@@ -40,22 +40,19 @@ runtime:
         test('Body mit den Properties', () => {
           res.getBody()
             .data
-            .patienten
-            .forEach(patient => {
-              const { id, version, nachname, email, kategorie, hasNewsletter, geburtsdatum, homepage, geschlecht, familienstand, adresse, fachaerzte, username } = patient;
+            .autohaeuser
+            .forEach(autohaus => {
+              const { id, version, name, username, email, anzahlFahrzeuge, gruendungsdatum, homepage, telefonnummer, adresse } = autohaus;
               expect(id).to.be.gte(0);
               expect(version).to.be.gte(0);
-              expect(nachname).to.be.a('string').that.is.not.empty;
-              expect(email).to.be.a('string').that.is.not.empty;
-              expect(kategorie).to.be.gte(0);
-              expect(hasNewsletter).to.be.a('boolean');
-              expect(geburtsdatum).to.be.a('string');
-              expect(homepage).to.be.a('string');
-              expect(geschlecht).to.be.a('string');
-              expect(familienstand).to.be.a('string');
-              expect(adresse).to.be.an('object').that.is.not.empty;
-              expect(fachaerzte).to.be.an('array');
+              expect(name).to.be.a('string').that.is.not.empty;
               expect(username).to.be.a('string').that.is.not.empty;
+              expect(email).to.be.a('string').that.is.not.empty;
+              expect(anzahlFahrzeuge).to.be.gte(0);
+              expect(gruendungsdatum).to.be.a('string');
+              expect(homepage).to.be.a('string');
+              expect(telefonnummer).to.be.a('string');
+              expect(adresse).to.be.an('object').that.is.not.empty;
             });
         });
   assertions:

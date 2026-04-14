@@ -26,7 +26,7 @@ from pytest import mark
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("autohaus_id", [30, 1, 20])
+@mark.parametrize("autohaus_id", [100, 101, 102])
 def test_get_by_id_admin(autohaus_id: int) -> None:
     # arrange
     token: Final = login()
@@ -71,10 +71,10 @@ def test_get_by_id_not_found(autohaus_id: int) -> None:
 
 @mark.rest
 @mark.get_request
-def test_get_by_id_user() -> None:
+def test_get_by_id_patient() -> None:
     # arrange
-    autohaus_id: Final = 20
-    token: Final = login(username="alice")
+    autohaus_id: Final = 100
+    token: Final = login(username="autohaus_karlsruhe")
     assert token is not None
     headers = {"Authorization": f"Bearer {token}"}
 
@@ -96,10 +96,10 @@ def test_get_by_id_user() -> None:
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("autohaus_id", [1, 30])
-def test_get_by_id_not_allowed(autohaus_id: int) -> None:
+@mark.parametrize("autohaus_id", [100, 101])
+def test_get_by_id_admin_explicit(autohaus_id: int) -> None:
     # arrange
-    token: Final = login(username="alice")
+    token: Final = login(username="admin")
     assert token is not None
     headers = {"Authorization": f"Bearer {token}"}
 
@@ -111,15 +111,20 @@ def test_get_by_id_not_allowed(autohaus_id: int) -> None:
     )
 
     # assert
-    assert response.status_code == HTTPStatus.FORBIDDEN
+    assert response.status_code == HTTPStatus.OK
+    response_body: Final = response.json()
+    assert isinstance(response_body, dict)
+    id_actual: Final = response_body.get("id")
+    assert id_actual is not None
+    assert id_actual == autohaus_id
 
 
 @mark.rest
 @mark.get_request
 @mark.parametrize("autohaus_id", [0, 999999])
-def test_get_by_id_not_allowed_not_found(autohaus_id: int) -> None:
+def test_get_by_id_admin_not_found(autohaus_id: int) -> None:
     # arrange
-    token: Final = login(username="alice")
+    token: Final = login(username="admin")
     assert token is not None
     headers = {"Authorization": f"Bearer {token}"}
 
@@ -131,12 +136,12 @@ def test_get_by_id_not_allowed_not_found(autohaus_id: int) -> None:
     )
 
     # assert
-    assert response.status_code == HTTPStatus.FORBIDDEN
+    assert response.status_code == HTTPStatus.NOT_FOUND
 
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("autohaus_id", [30, 1, 20])
+@mark.parametrize("autohaus_id", [100, 101, 102])
 def test_get_by_id_ungueltiger_token(autohaus_id: int) -> None:
     # arrange
     token: Final = login()
@@ -156,7 +161,7 @@ def test_get_by_id_ungueltiger_token(autohaus_id: int) -> None:
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("autohaus_id", [30, 1, 20])
+@mark.parametrize("autohaus_id", [100, 101, 102])
 def test_get_by_id_ohne_token(autohaus_id: int) -> None:
     # act
     response: Final = get(f"{rest_url}/{autohaus_id}", verify=ctx)
@@ -167,7 +172,7 @@ def test_get_by_id_ohne_token(autohaus_id: int) -> None:
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("autohaus_id,if_none_match", [(20, '"0"'), (30, '"0"')])
+@mark.parametrize("autohaus_id,if_none_match", [(100, '"0"'), (101, '"0"')])
 def test_get_by_id_etag(autohaus_id: int, if_none_match: str) -> None:
     # arrange
     token: Final = login()
@@ -191,7 +196,7 @@ def test_get_by_id_etag(autohaus_id: int, if_none_match: str) -> None:
 
 @mark.rest
 @mark.get_request
-@mark.parametrize("autohaus_id,if_none_match", [(30, 'xxx"'), (1, "xxx"), (20, "xxx")])
+@mark.parametrize("autohaus_id,if_none_match", [(100, 'xxx"'), (101, "xxx"), (102, "xxx")])  # noqa: E501
 def test_get_by_id_etag_invalid(autohaus_id: int, if_none_match: str) -> None:
     # arrange
     token: Final = login()

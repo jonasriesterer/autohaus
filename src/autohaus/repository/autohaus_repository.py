@@ -85,7 +85,15 @@ class AutohausRepository:
 
         # Iteration ueber die Schluessel des Dictionaries mit den Suchparameter
         for key, value in suchparameter.items():
-            if key == "nachname":
+            if key == "email":
+                autohaus = self._find_by_email(email=value, session=session)
+                logger.debug(log_str, autohaus)
+                return (
+                    Slice(content=(autohaus,), total_elements=1)
+                    if autohaus is not None
+                    else Slice(content=(), total_elements=0)
+                )
+            if key in ("name"):
                 autohaeuser = self._find_by_name(
                     teil=value, pageable=pageable, session=session
                 )
@@ -147,6 +155,25 @@ class AutohausRepository:
         autohaus_slice: Final = Slice(content=tuple(autohaeuser), total_elements=anzahl)
         logger.debug("{}", autohaus_slice)
         return autohaus_slice
+
+    def _find_by_email(self, email: str, session: Session) -> Autohaus | None:
+        """Einen Autohaus anhand der Emailadresse suchen.
+
+        :param email: Emailadresse
+        :param session: Session für SQLAlchemy
+        :return: Gefundener Autohaus, falls es einen Autohaus gibt, sonst None
+        :rtype: Autohaus | None
+        """
+        logger.debug("email={}", email)  # NOSONAR
+        # https://docs.sqlalchemy.org/en/20/orm/session_basics.html#querying
+        statement: Final = (
+            select(Autohaus)
+            .options(joinedload(Autohaus.adresse))
+            .where(Autohaus.email == email)
+        )
+        autohaus: Final = session.scalar(statement)
+        logger.debug("{}", autohaus)
+        return autohaus
 
     def _count_rows_name(self, teil: str, session: Session) -> int:
         statement: Final = (

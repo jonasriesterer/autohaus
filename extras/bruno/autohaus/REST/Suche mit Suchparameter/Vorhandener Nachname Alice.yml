@@ -1,5 +1,5 @@
 info:
-  name: Vorhandener Nachname Alice
+  name: Vorhandener Name Autohaus Karlsruhe
   type: http
   seq: 3
 
@@ -19,12 +19,12 @@ runtime:
   scripts:
     - type: after-response
       code: |-
-        test('Body: Nachname "Alpha" und ID > 0', () => {
+        test('Body: Name "Autohaus Karlsruhe" und ID > 0', () => {
           res.getBody()
             .content
-            .forEach(patient => {
-              const { nachname, id } = patient;
-              expect(nachname).to.be.equal('Alice');
+            .forEach(autohaus => {
+              const { name, id } = autohaus;
+              expect(name).to.be.equal('Autohaus Karlsruhe');
               expect(id).to.be.above(0);
             });
         });

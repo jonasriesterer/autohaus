@@ -14,25 +14,30 @@ graphql:
     query: |-
       mutation {
         create(
-          patientInput: {
-            nachname: "falscher_nachname"
+          autohausInput: {
+            name: "falscher_name"
+            username: "testgraphql"
             email: "falsche_email@"
-            kategorie: 1
-            hasNewsletter: true
-            geburtsdatum: "2022-01-31"
+            anzahlFahrzeuge: 0
+            gruendungsdatum: "2022-01-31"
             homepage: "https://?!"
-            geschlecht: WEIBLICH
-            familienstand: LEDIG
-            fachaerzte: [CHIRURGIE]
+            telefonnummer: "+49 123 456789"
             adresse: {
               plz: "1234"
               ort: "Testort"
+              land: ""
             }
+            autos: [{
+              kennzeichen: ""
+              marke: ""
+              modell: ""
+              baujahr: "abcd"
+            }]
+            nachname: "falscher_nachname"
             rechnungen: [{
               betrag: "1"
               waehrung: "EU"
             }]
-            username: "testgraphql"
           }
         ) {
           id

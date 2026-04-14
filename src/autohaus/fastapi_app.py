@@ -51,6 +51,7 @@ from autohaus.router import (
 from autohaus.security import AuthorizationError, LoginError, set_response_headers
 from autohaus.security import router as auth_router
 from autohaus.service.exceptions import (
+    EmailExistsError,
     ForbiddenError,
     NotFoundError,
     UsernameExistsError,
@@ -246,6 +247,23 @@ def username_exists_error_handler(
     """Exception-Handling für UsernameExistsError.
 
     :param err: Exception, falls der Username für das neue Autohaus bereits existiert
+    :return: Response mit Statuscode 422
+    :rtype: Response
+    """
+    return create_problem_details(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        detail=str(err),
+    )
+
+
+@app.exception_handler(EmailExistsError)
+def email_exists_error_handler(
+    _request: Request,
+    err: EmailExistsError,
+) -> Response:
+    """Exception-Handling für EmailExistsError.
+
+    :param err: Exception, falls die Emailadresse bereits existiert
     :return: Response mit Statuscode 422
     :rtype: Response
     """

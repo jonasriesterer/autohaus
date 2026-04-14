@@ -1,0 +1,82 @@
+' Copyright (C) 2023 - present Juergen Zimmermann, Hochschule Karlsruhe
+'
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+'
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+'
+' You should have received a copy of the GNU General Public License
+' along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+' Preview durch <Alt>d
+
+@startuml Schichtenarchitektur
+
+package autohaus #DDDDDD {
+    package rest #FFFFFF {
+        [@router.get()\nget_by_id()\n\n@router.get()\nget()] as AutohausGetController
+        [@router.post()\npost()\n\n@router.put()\nput()\n\n@router.delete()\ndelete_by_id()] as AutohausWriteController
+        [@router.get()\nliveness()\n\n@router.get()\nreadiness()] as HealthController
+
+        [AutohausGetController] -right[hidden]-> [AutohausWriteController]
+    }
+
+    package service #FFFFFF {
+        [find_by_id()\nfind()] as AutohausReadService
+        [create()\nupdate()\ndelete_by_id()] as AutohausWriteService
+    }
+
+    [AutohausGetController] --> [AutohausReadService]
+    [AutohausWriteController] --> [AutohausWriteService]
+
+    package repository #FFFFFF {
+        [find_by_id()\nfind()\ncreate()\nupdate()\ndelete_by_id()\nexists_username()] as AutohausRepository
+    }
+
+    [AutohausReadService] --> [AutohausRepository]
+    [AutohausWriteService] --> [AutohausRepository]
+    [HealthController] --> [AutohausRepository]
+
+    package entity #FFFFFF {
+        [Autohaus]
+        [Adresse]
+        [Auto]
+
+        [Autohaus] -right[hidden]-> [Adresse]
+        [Autohaus] -down[hidden]-> [Auto]
+    }
+
+    [AutohausGetController] ..> [Autohaus]
+    [AutohausWriteController] ..> [Autohaus]
+    [AutohausReadService] .left.> [Autohaus]
+    [AutohausWriteService] ..> [Autohaus]
+    [AutohausRepository] ..> [Autohaus]
+}
+
+RESTClient ~~> [AutohausGetController]
+RESTClient ~~> [AutohausWriteController]
+RESTClient ~~> [HealthController]
+
+cloud {
+    [SQLAlchemy\n(OR-Mapping)] as SQLAlchemy
+}
+
+[AutohausRepository] ~down~> [SQLAlchemy]
+entity ~~> [SQLAlchemy]
+
+database "DB autohaus" as db {
+    [Tabelle autohaus]
+    [Tabelle adresse]
+    [Tabelle auto]
+}
+
+[SQLAlchemy] ~down~> db
+
+footer (c) Juergen Zimmermann
+
+@enduml

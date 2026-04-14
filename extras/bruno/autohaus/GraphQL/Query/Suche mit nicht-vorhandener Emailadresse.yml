@@ -13,7 +13,7 @@ graphql:
   body:
     query: |-
       {
-        patienten(suchparameter: {email: "Nicht.Vorhanden@acme.com"}) {
+        patienten: autohaeuser(suchparameter: {email: "Nicht.Vorhanden@acme.com"}) {
           id
         }
       }

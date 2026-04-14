@@ -27,3 +27,5 @@ request:
   variables:
     - name: clientSecret
       value: 1ZrjDc99bHka9wjfXMa42NodHIxvjoOB
+    - name: clientId
+      value: python-client

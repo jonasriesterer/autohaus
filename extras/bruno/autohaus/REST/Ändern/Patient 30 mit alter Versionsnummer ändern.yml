@@ -11,7 +11,7 @@ http:
       value: '"-1"'
   params:
     - name: id
-      value: "1000"
+      value: "100"
       type: path
   body:
     type: json

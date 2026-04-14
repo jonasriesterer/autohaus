@@ -21,11 +21,21 @@ http:
       id: credentials
       placement:
         header: Bearer
+      source: access_token
     settings:
       autoFetchToken: true
       autoRefreshToken: false
 
 runtime:
+  variables:
+    - name: username
+      value: admin
+    - name: password
+      value: p
+    - name: clientId
+      value: python-client
+    - name: clientSecret
+      value: 1ZrjDc99bHka9wjfXMa42NodHIxvjoOB
   assertions:
     - expression: res.status
       operator: eq

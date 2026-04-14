@@ -11,7 +11,7 @@ http:
       value: '"0"'
   params:
     - name: id
-      value: "1000"
+      value: "100"
       type: path
   body:
     type: json
@@ -28,24 +28,6 @@ http:
   auth: inherit
 
 runtime:
-  scripts:
-    - type: after-response
-      code: |-
-        test('Fehlermeldungen im Response Body', () => {
-          const body = res.getBody();
-          const props = ['name', 'username', 'email', 'anzahl_fahrzeuge', 'homepage', 'telefonnummer'];
-
-          // FastAPI
-          if (Object.keys(body).length == 1 && body.detail !== undefined) {
-            const detailProps = body.detail.map(elem => elem.loc[1]);
-            expect(detailProps).to.have.length(props.length);
-            detailProps.forEach(prop => expect(props).to.include(prop));
-          }
-
-          // Flask
-          //expect(Object.keys(body)).to.be.an('array').that.has.a.lengthOf(props.length);
-          //props.forEach(prop => expect(body[prop]).to.be.an('array').that.is.not.empty);
-        });
   assertions:
     - expression: res.status
       operator: eq

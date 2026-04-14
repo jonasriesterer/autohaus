@@ -1,5 +1,5 @@
 info:
-  name: Vorhandene ID 1000
+  name: Vorhandene ID 100
   type: http
   seq: 6
 
@@ -11,7 +11,7 @@ http:
       value: application/json
   params:
     - name: id
-      value: "1000"
+      value: "100"
       type: path
   auth: inherit
 
