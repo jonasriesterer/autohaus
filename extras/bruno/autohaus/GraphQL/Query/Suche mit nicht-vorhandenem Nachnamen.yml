@@ -13,7 +13,7 @@ graphql:
   body:
     query: |-
       {
-        patienten: autohaeuser(suchparameter: {name: "Nichtvorhanden"}) {
+        autohaeuser: autohaeuser(suchparameter: {name: "Nichtvorhanden"}) {
           id
         }
       }

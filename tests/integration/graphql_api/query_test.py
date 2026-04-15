@@ -37,26 +37,9 @@ def test_query_id() -> None:
     query: Final = {
         "query": """
             {
-                autohaus(autohausId: "101") {
-                    version
+                autohaus(autohausId: "100") {
                     name
                     email
-                    anzahlFahrzeuge
-                    gruendungsdatum
-                    homepage
-                    telefonnummer
-                    adresse {
-                        plz
-                        ort
-                        land
-                    }
-                    autos {
-                        kennzeichen
-                        marke
-                        modell
-                    }
-                    username
-                }
             }
         """,
     }

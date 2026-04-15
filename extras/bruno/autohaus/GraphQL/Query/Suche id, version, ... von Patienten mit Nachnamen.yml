@@ -12,8 +12,8 @@ graphql:
       disabled: true
   body:
     query: |-
-      query ($name: String = "Test") {
-        patienten: autohaeuser(suchparameter: {name: $name}) {
+      query ($name: String = "Stuttgart") {
+        autohaeuser: autohaeuser(suchparameter: {name: $name}) {
           id
           version
           name

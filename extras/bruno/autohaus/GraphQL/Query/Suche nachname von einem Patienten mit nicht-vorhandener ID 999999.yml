@@ -13,7 +13,7 @@ graphql:
   body:
     query: |-
       {
-        patient: autohaus(autohausId: "999999") {
+        autohaus: autohaus(autohausId: "999999") {
           name
         }
       }
