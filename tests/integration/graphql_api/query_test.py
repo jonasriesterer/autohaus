@@ -40,6 +40,7 @@ def test_query_id() -> None:
                 autohaus(autohausId: "100") {
                     name
                     email
+                }
             }
         """,
     }
@@ -110,13 +111,6 @@ def test_query_email() -> None:
                     adresse {
                         plz
                         ort
-                        land
-                    }
-                    autos {
-                        kennzeichen
-                        marke
-                        modell
-                        baujahr
                     }
                     username
                 }
