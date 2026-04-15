@@ -15,7 +15,7 @@
 
 ' Preview durch <Alt>d
 
-@startuml Use Cases
+@startuml Use-Cases
 
 actor Gast
 actor Admin

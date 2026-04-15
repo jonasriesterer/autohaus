@@ -1,3 +1,3 @@
 # Modul für die GraphQL-Schnittstelle
 
-::: patient.graphql_api
+::: autohaus.graphql_api

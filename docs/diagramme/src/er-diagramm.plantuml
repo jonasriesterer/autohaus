@@ -15,7 +15,7 @@
 
 ' Preview durch <Alt>d
 
-@startuml ER Diagramm
+@startuml ER-Diagramm
 
 ' hide the spot
 hide circle
