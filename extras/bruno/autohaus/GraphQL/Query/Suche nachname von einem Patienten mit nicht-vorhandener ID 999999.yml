@@ -27,7 +27,7 @@ runtime:
     - expression: res.headers['content-type']
       operator: eq
       value: application/json
-    - expression: res.body.data.patient
+    - expression: res.body.data.autohaus
       operator: isNull
 
 settings:

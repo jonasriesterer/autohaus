@@ -43,7 +43,7 @@ runtime:
         test('Body mit den Properties', () => {
           res.getBody()
             .data
-            .patienten
+            .autohaeuser
             .forEach(autohaus => {
               const { id, version, name, username, email, anzahlFahrzeuge, gruendungsdatum, homepage, telefonnummer, adresse } = autohaus;
               expect(id).to.be.gte(0);
@@ -65,7 +65,7 @@ runtime:
     - expression: res.headers['content-type']
       operator: eq
       value: application/json
-    - expression: res.body.data.patienten
+    - expression: res.body.data.autohaeuser
       operator: isArray
 
 settings:
