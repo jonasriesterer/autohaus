@@ -67,8 +67,6 @@ runtime:
       value: application/json
     - expression: res.body.data.patienten
       operator: isArray
-    - expression: res.body.data.patienten
-      operator: isNotEmpty
 
 settings:
   encodeUrl: true

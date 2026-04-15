@@ -46,7 +46,7 @@ def test_create() -> None:
                         }
                         autos: [
                             {
-                                kennzeichen: "KA-AB 12"
+                                kennzeichen: "KAAB12"
                                 marke: "VW"
                                 modell: "Golf"
                                 baujahr: 2020
@@ -113,4 +113,4 @@ def test_create_invalid() -> None:
     assert response_body["data"] is None
     errors: Final = response_body["errors"]
     assert isinstance(errors, list)
-    assert len(errors) > 0  
+    assert len(errors) > 0

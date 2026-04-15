@@ -15,8 +15,8 @@ http:
     data: |-
       {
           "name": "Autohaus Test",
-          "username": "testrest",
-          "email": "testrest@test.rest",
+          "username": "anlegentest",
+          "email": "anlegentest@test.rest",
           "anzahl_fahrzeuge": 5,
           "gruendungsdatum": "2022-02-01",
           "homepage": "https://test.rest",

@@ -178,7 +178,7 @@ class Mutation:
         return LoginResult(token=token, expiresIn="1d", roles=roles)
 
 
-schema: Final = strawberry.Schema(query=Query)
+schema: Final = strawberry.Schema(query=Query, mutation=Mutation)
 
 Context = dict[str, Request]
 

@@ -115,7 +115,7 @@ def test_query_email() -> None:
     query: Final = {
         "query": """
             {
-                autohaeuser(suchparameter: {email: "info@autohaus-acme.de"}) {
+                autohaeuser(suchparameter: {email: "kontakt@autohaus-karlsruhe.de"}) {
                     id
                     version
                     name
@@ -131,6 +131,9 @@ def test_query_email() -> None:
                     }
                     autos {
                         kennzeichen
+                        marke
+                        modell
+                        baujahr
                     }
                     username
                 }
