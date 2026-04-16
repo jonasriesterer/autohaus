@@ -23,7 +23,7 @@ import subprocess  # noqa: S404
 from pathlib import Path
 from sysconfig import get_platform
 
-nvd_api_key = "47fbc0a4-9240-4fda-9a26-d7d5624c16bf"
+nvd_api_key = "7956e0d3-2740-4558-a4a1-f8b21236a427"
 project = "FastAPI"
 
 base_script = "dependency-check"
@@ -47,6 +47,7 @@ report_path = "."
 options = " ".join([
     f"--nvdApiKey {nvd_api_key} --project {project} --scan {pyproject_path}",
     f"--suppression extras/suppression.xml --out {report_path} --data {data_path}",
+    "--noupdate",
     # dependency-check.bat --advancedHelp
     "--disableArchive",
     "--disableAssembly",
